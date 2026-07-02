@@ -1,6 +1,6 @@
 # This is the first section in a `compose.yaml` file
 # It is used to list the services that will be started when you run 
-# the command: `docker compose up`
+# the command: `docker compose up -d`
 
 # NOTE: You must be in the same directory as the `compose.yaml` file
 

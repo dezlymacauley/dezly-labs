@@ -22,10 +22,34 @@ services:
 ```
 _______________________________________________________________________________
 
+Start the Docker service and Docker socket
+
+```
+sudo systemctl start docker.service docker.socket
+```
+_______________________________________________________________________________
+
 Ensure that you are at the root of the project directory 
 and then run this command:
 
 ```
-docker compose up
+docker compose up -d
+```
+
+The `-d` means detach. This means that after you run `docker compose up`,
+you will still be able to use the terminal.
+_______________________________________________________________________________
+
+When you are done, run this command:
+
+```
+docker compose down
+```
+_______________________________________________________________________________
+
+Stop the Docker service and Docker socket
+
+```
+sudo systemctl stop docker.service docker.socket
 ```
 _______________________________________________________________________________
