@@ -29,10 +29,17 @@ systemctl is-active docker
 ```
 _______________________________________________________________________________
 
-If the Docker service is inactive, 
-you can start it by running the following command
+If the service is inactive,
+then run this command to start the `Docker service` and `Docker socket`
 
 ```
-sudo systemctl start docker.service
+sudo systemctl start docker.service docker.socket
+```
+_______________________________________________________________________________
+
+Run this command to stop the `Docker service` and `Docker socket`
+
+```
+sudo systemctl stop docker.service docker.socket
 ```
 _______________________________________________________________________________
