@@ -47,6 +47,13 @@ docker compose down
 ```
 _______________________________________________________________________________
 
+Run this command to remove the leftover volumes
+
+```
+docker volume prune -f
+```
+_______________________________________________________________________________
+
 Stop the Docker service and Docker socket
 
 ```
