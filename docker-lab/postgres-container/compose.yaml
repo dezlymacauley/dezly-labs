@@ -1,23 +1,39 @@
 # This is the first section in a `compose.yaml` file
 # It is used to list the services that will be started when you run 
-# the command: `?? compose.yaml`
+# the command: `docker compose up`
+
+# NOTE: You must be in the same directory as the `compose.yaml` file
+
 # Think of each service listed as a `group name` for containers that share
 # a common purpose.
 services:
+
   # This is where you name the service
   # This is a service called `dezly-labs-postgres-lab`
   postgres-lab-service:
+
     # This is where you create a name for each individual container
     container_name: postgres-lab-database
     # Check Docker Hub for the latest Alpine image of Postgres
     # https://hub.docker.com/_/postgres/tags?name=alpine
     # The syntax is: `image: image-tag-from-docker-hub`
+
     image: postgres:18.4-alpine3.24
 
     # This is where you set the value of environment variables
     # that will be used by programs inside the container.
     environment:
+
       # Postgres requires this environment variable to be set.
       # Postgres won't work if this variabl
       # https://hub.docker.com/_/postgres#environment-variables
       POSTGRES_PASSWORD: postgres
+
+    # This is where you set the host and port of the connection. 
+    # The syntax is:
+    # host_ip:host_port:container_port
+    ports:
+      # The container will run on the network `127.0.0.1` (aka localhost),
+      # and port 5432 of localhost, 
+      # will be used to acess port 5432 or the container.
+      - "127.0.0.1:5432:5432"

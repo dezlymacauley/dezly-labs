@@ -8,6 +8,14 @@ sudo pacman -S --needed docker
 ```
 _______________________________________________________________________________
 
+Install this package so that you can use the `docker compose up`
+and `docker compose down` commands to work with `compose.yaml` files
+
+```
+sudo pacman -S --needed docker-compose
+```
+_______________________________________________________________________________
+
 Run this command to create a privileged system group called `docker`
 
 ```
