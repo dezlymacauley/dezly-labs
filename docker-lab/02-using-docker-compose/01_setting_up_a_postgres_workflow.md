@@ -19,6 +19,11 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-lab-postgres-data:/var/lib/postgresql
+
+volumes:
+  postgres-lab-postgres-data:
 ```
 _______________________________________________________________________________
 
@@ -47,7 +52,11 @@ docker compose down
 
 _______________________________________________________________________________
 
-Tip: You can also use the `-v` flag to remove the volume as well.
+You can also use the `-v` flag to remove the volume as well.
+
+**Warning:** Don't run this command for a database like Postgres,
+unless you want to delete all of the data in the database.
+
 ```
 docker compose down -v
 ```
