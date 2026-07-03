@@ -24,6 +24,7 @@ services:
 
 volumes:
   postgres-lab-postgres-data:
+    name: postgres-lab-postgres-data
 ```
 _______________________________________________________________________________
 
@@ -49,9 +50,9 @@ You will get an output like this:
 
 ```
 [+] up 3/3
- ✔ Network postgres-container_default                   Created                                               0.1s
- ✔ Volume postgres-container_postgres-lab-postgres-data Created                                               0.0s
- ✔ Container postgres-lab-database                      Started
+ ✔ Network postgres-container_default Created                                                                 0.1s
+ ✔ Volume postgres-lab-postgres-data  Created                                                                 0.0s
+ ✔ Container postgres-lab-database    Started
 ```
 _______________________________________________________________________________
 

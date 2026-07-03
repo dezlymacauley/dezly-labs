@@ -57,3 +57,13 @@ services:
 
 volumes:
   postgres-lab-postgres-data:
+    # This may seem redundant but you need to declare the name,
+    # or the directory name that the `compose.yaml` file inside,
+    # will be prefixed to the volume name:
+    # E.g. If the `compose.yaml` file is in a directory 
+    # called `postgres-container` then the volume name will be:
+    # postgres-container_postgres-lab-postgres-data
+
+    # By setting the `name` field, 
+    # you ensure that the volume name is exactly `postgres-lab-postgres-data`
+    name: postgres-lab-postgres-data
