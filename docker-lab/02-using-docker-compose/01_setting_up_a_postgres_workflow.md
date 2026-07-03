@@ -40,10 +40,16 @@ The `-d` means detach. This means that after you run `docker compose up`,
 you will still be able to use the terminal.
 _______________________________________________________________________________
 
-When you are done, run this command:
-
+When you are done, run this command to remove the contai
 ```
 docker compose down
+```
+
+_______________________________________________________________________________
+
+Tip: You can also use the `-v` flag to remove the volume as well.
+```
+docker compose down -v
 ```
 _______________________________________________________________________________
 
