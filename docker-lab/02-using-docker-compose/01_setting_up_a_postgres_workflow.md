@@ -45,11 +45,31 @@ The `-d` means detach. This means that after you run `docker compose up`,
 you will still be able to use the terminal.
 _______________________________________________________________________________
 
+You will get an output like this:
+
+```
+[+] up 3/3
+ ✔ Network postgres-container_default                   Created                                               0.1s
+ ✔ Volume postgres-container_postgres-lab-postgres-data Created                                               0.0s
+ ✔ Container postgres-lab-database                      Started
+```
+_______________________________________________________________________________
+
 When you are done, run this command to remove the contai
 ```
 docker compose down
 ```
+_______________________________________________________________________________
 
+You will see an output like this
+
+```
+[+] down 2/2
+ ✔ Container postgres-lab-database    Removed                                                                 0.3s
+ ✔ Network postgres-container_default Removed
+```
+
+This gets rid of the container but keeps the service.
 _______________________________________________________________________________
 
 You can also use the `-v` flag to remove the volume as well.
