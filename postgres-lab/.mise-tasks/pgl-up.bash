@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#MISE description="❌ Shutdown the Postgres Lab Docker container"
+#MISE description="🐘 Set up the Postgres Lab"
 #MISE quiet=true
 
 printf "\n"
-docker compose down
+docker compose up -d
 printf "\n"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="🚥 Check if the Docker service is active"
+#MISE description="🚥 Check status of the Docker service"
 #MISE quiet=true
 
 if [[ "$(systemctl is-active docker)" == "active" ]]; then

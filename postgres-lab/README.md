@@ -43,6 +43,9 @@ word in the `mise` cli
 
 _______________________________________________________________________________
 
+## Mise Tasks
+_______________________________________________________________________________
+
 To view a list of mise-tasks, run this command:
 
 ```bash
@@ -55,43 +58,50 @@ and run Docker compose commands
 
 ```
 Name        Description
-containers  🚢 View the id, name, and status of all containers
+containers  🚢 View the ID, name, and status of all containers
 images      📜 List all downloaded container images
 pgl-clean   🧼 Delete the Postgres Lab volume
-pgl-down    🐘 Setup the Postgres Lab Docker container
-pgl-up      ❌ Shutdown the Postgres Lab Docker container
-ports       🔌 View the id, name, and port of all containers
-status      🚥 Check if the Docker service is active
+pgl-down    ❌ Shut down the Postgres Lab
+pgl-up      🐘 Set up the Postgres Lab
+ports       🔌 View the ID, name, and ports of all containers
+status      🚥 Check status of the Docker service
 toggle      🔁 Toggle the status of the Docker service
 volumes     📦 List container volumes
 ```
 _______________________________________________________________________________
 
-Run this command, to check i the Docker service is active
+## Using the Postgres Lab
+_______________________________________________________________________________
+
+Run this command, to check if the Docker service is active
 
 ```bash
 mise status
 ```
 _______________________________________________________________________________
 
-If the Docker service is innactive, then run:
+If the Docker service is innactive, run this command
 
 ```bash
 mise toggle
 ```
 _______________________________________________________________________________
 
-To run the `compose.yaml` file
+Run this command to set up the Postgres Lab
 
 ```bash
-docker compose up -d
+mise pgl-up
 ```
 _______________________________________________________________________________
 
-When you are done with the `postgres-lab`, 
-you can run this command to shut down the service.
+When you are done using Postgres Lab,
+run this command to shutdown the Docker container.
 
 ```sh
-docker compose down
+mise pgl-down
 ```
+
+- Note: This command will not delete the container volume,
+so when you run `pgl-up` the next time, 
+Postgres Lab will you will still have all of your data from the last setup.
 _______________________________________________________________________________
