@@ -123,3 +123,40 @@ This is what is recommend by the official mise documentation.
 cargo binstall mise
 ```
 _______________________________________________________________________________
+
+### Step 6: Add `mise` to your shell, and restart your machine
+
+_______________________________________________________________________________
+
+If you use `fish` shell like I do, then add these lines...
+
+```bash
+if command -q mise
+    mise activate fish | source
+end
+```
+...to end this file `~/.config/fish/config.fish`
+
+_______________________________________________________________________________
+
+If you use `bash` then add these lines
+
+```bash
+if command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate bash)"
+fi
+```
+...to end this file `~/.bashrc`
+
+_______________________________________________________________________________
+
+If you use `zsh` then add these lines
+
+```bash
+if command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate zsh)"
+fi
+```
+...to end this file `~/.zshrc`
+
+_______________________________________________________________________________
