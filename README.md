@@ -15,8 +15,9 @@ _______________________________________________________________________________
 Many of the labs I use are managed by `mise` in order to simply the setup
 to one command: `mise setup`
 
-To have the smoot
-I recommend installing mise using 
+To have the best experience when using `Dezly Labs`, 
+I recommend installing mise using the `cargo-binstall` command,
+since mise is a Rust-based tool.
 
 _______________________________________________________________________________
 
@@ -65,18 +66,60 @@ rustfmt --version
 ```
 _______________________________________________________________________________
 
-### Add the `.cargo/bin` directory to your `PATH` variable
+### Step 3: Add the `.cargo/bin` directory to your `PATH` variable
 
 This will allow you to use programs that are globally instaled 
 by the `cargo` command.
 
 _______________________________________________________________________________
 
-If you use `fish` shell like I do (which is actually a Rust-powered shell),
+If you use `fish` shell like I do (which is actually a Rust-based shell),
 then add this line...
 
 ```bash
 fish_add_path "$HOME/.cargo/bin/"
 ```
 ...to this file `~/.config/fish/config.fish`
+_______________________________________________________________________________
+
+If you use `bash` then add this line...
+
+```bash
+export PATH="$HOME/.cargo/bin:$PATH"
+```
+
+...to this file `~/.bashrc`
+
+_______________________________________________________________________________
+
+If you use `zsh` then add this line...
+
+```bash
+export PATH="$HOME/.cargo/bin:$PATH"
+```
+
+...to this file `~/.zshrc`
+
+_______________________________________________________________________________
+
+### Step 4: Use `cargo` to get the `cargo-binstall` command
+
+```bash
+cargo install cargo-binstall --locked
+```
+
+- Note: Please be patient. This command will take a few minutes to build
+`cargo-binstall` from source.
+
+On my machine it took about `5 minutes`
+
+_______________________________________________________________________________
+
+### Step 5: Use `cargo-binstall` to install `mise`
+
+This is what is recommend by the official mise documentation.
+
+```sh
+cargo binstall mise
+```
 _______________________________________________________________________________
