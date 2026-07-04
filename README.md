@@ -204,5 +204,19 @@ mise completion zsh  > /usr/local/share/zsh/site-functions/_mise
 ```
 _______________________________________________________________________________
 
+Run this command to check that your setup is fine
+
+```bash
+mise doctor
+```
+_______________________________________________________________________________
+
+If you see this output, you are ready to start using `mise`
+
+```
+No problems found
+```
+_______________________________________________________________________________
+
  🧑‍🔬   Enjoy using **Dezly Labs**!
 _______________________________________________________________________________
