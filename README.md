@@ -1,4 +1,4 @@
-# Dezly Labs
+# 🧑‍🔬   Dezly Labs
 _______________________________________________________________________________
 
 ## Available Labs
@@ -159,4 +159,50 @@ fi
 ```
 ...to end this file `~/.zshrc`
 
+_______________________________________________________________________________
+
+### Step 7: Use `mise` to install `usage` globally
+
+`usage` is required by mise to provide auto completion
+
+```bash
+mise use -g usage
+```
+_______________________________________________________________________________
+
+### Step 8: Add the completion script to your shell
+
+If you use `fish` shell like I do, run this command
+
+```bash
+mise completion fish > ~/.config/fish/completions/mise.fish
+```
+_______________________________________________________________________________
+
+If you use `bash`, run this command
+
+```bash
+# This requires bash-completion to be installed
+mkdir -p ~/.local/share/bash-completion/completions/
+mise completion bash --include-bash-completion-lib \
+    > ~/.local/share/bash-completion/completions/mise
+```
+_______________________________________________________________________________
+
+If you use `zsh`, run this command
+
+```bash
+# If you use oh-my-zsh, there is a `mise` plugin. Update your .zshrc file with:
+# plugins=(... mise)
+
+# Otherwise, look where zsh search for completions with
+echo $fpath | tr ' ' '\n'
+
+# if you installed zsh with `apt-get` for example, this will work:
+mkdir -p /usr/local/share/zsh/site-functions
+mise completion zsh  > /usr/local/share/zsh/site-functions/_mise
+```
+_______________________________________________________________________________
+
+ 🧑‍🔬   Enjoy using **Dezly Labs**!
 _______________________________________________________________________________
