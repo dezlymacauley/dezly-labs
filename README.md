@@ -3,11 +3,12 @@ _______________________________________________________________________________
 
 ## Available Labs
 
-- 🦀 Rust
 - 🐚 Bash
-- 🐍 Python
 - 🚢 Docker
+- 🐹 Go
 - 🐘 Postgres
+- 🐍 Python
+- 🦀 Rust
 _______________________________________________________________________________
 
 ## Setting up the `cargo binstall` install command
