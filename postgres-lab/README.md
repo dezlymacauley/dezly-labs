@@ -60,6 +60,7 @@ and run Docker compose commands
 Name        Description
 containers  🚢 View the ID, name, and status of all containers
 images      📜 List all downloaded container images
+pgl-admin   🔩 Use psql to perform admin tasks on the Postgres cluster
 pgl-clean   🧼 Delete the Postgres Lab volume
 pgl-down    ❌ Shut down the Postgres Lab
 pgl-up      🐘 Set up the Postgres Lab
@@ -92,6 +93,27 @@ Run this command to set up the Postgres Lab
 ```bash
 mise pgl-up
 ```
+_______________________________________________________________________________
+
+Run this command to perform admin tasks on the Postgres cluster
+
+```bash
+mise pgl-admin
+```
+_______________________________________________________________________________
+
+You will be logged into the `psl prompt`, which looks like this
+
+```
+psql (18.4)
+Type "help" for help.
+
+postgres=#
+```
+_______________________________________________________________________________
+
+To exit the prompt, type `\q`, and then press the `Enter` key
+
 _______________________________________________________________________________
 
 When you are done using Postgres Lab,
