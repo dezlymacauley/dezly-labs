@@ -50,6 +50,13 @@ rustup update stable
 ```
 _______________________________________________________________________________
 
+Then set the `stable` version as the default toolchain
+
+```bash
+rustup default stable
+```
+_______________________________________________________________________________
+
 Add `rust-analyzer` to the `stable` toolchain, 
 to get language support for Rust projects.
 
