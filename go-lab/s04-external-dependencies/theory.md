@@ -28,3 +28,12 @@ and any additional modules (external packages) that the project needs
 in order to function.
 
 _______________________________________________________________________________
+
+package 
+
+contains multiple files.
+_______________________________________________________________________________
+
+Different packages bundled together form a library.
+
+_______________________________________________________________________________
