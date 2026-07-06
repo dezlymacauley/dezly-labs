@@ -5,4 +5,6 @@ GET = Used for retrieving data from an API
 
 POST = submits data to the API
 
-PUT = updates the resource
+PUT = updates an existing resource
+
+DELETE = Deletes the resource
