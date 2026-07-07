@@ -29,6 +29,14 @@ chmod +x .mise-tasks/*.bash
 ```
 _______________________________________________________________________________
 
+Run this command to ensure `pgcli` and `sqruff` are installed,
+and to ensure that the `Docker service` is running.
+
+```bash
+mise setup
+```
+_______________________________________________________________________________
+
 `mise-tasks` are a functionality in mise that allows you to create custom
 commands from the name of a file that contains a script 
 and display all of them in a cool terminal menu.

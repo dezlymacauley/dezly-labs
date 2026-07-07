@@ -1,0 +1,3 @@
+# The Python virtual environment
+# This is where uv will install the project dependencies
+.venv/
