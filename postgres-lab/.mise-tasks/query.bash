@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="🔎 Perform query tasks with pgcli"
+#MISE description="🔎 Perform database queries with pgcli"
 #MISE quiet=true
 #______________________________________________________________________________
 

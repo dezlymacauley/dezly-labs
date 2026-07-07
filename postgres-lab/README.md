@@ -124,6 +124,13 @@ To exit the prompt, type `\q`, and then press the `Enter` key
 
 _______________________________________________________________________________
 
+To make database queries run this command
+
+```bash
+mise query
+```
+_______________________________________________________________________________
+
 When you are done using Postgres Lab,
 run this command to shutdown the Docker container.
 
