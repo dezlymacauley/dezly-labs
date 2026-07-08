@@ -4,9 +4,10 @@ _______________________________________________________________________________
 ## Available Labs
 
 - 🐚 Bash
+- ⚙️ C
 - 🚢 Docker
 - 🐹 Go
-- ☸️Kubernetes
+- ☸️ Kubernetes
 - 🐘 Postgres
 - 🐍 Python
 - 🦀 Rust
