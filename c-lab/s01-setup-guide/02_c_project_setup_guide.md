@@ -111,6 +111,39 @@ bin/
 ```
 _______________________________________________________________________________
 
+Add this ot the Makefile
+
+```bash
+NAME := main
+VERSION := 0.1.0
+
+CC := clang
+CFLAGS := -std=c23 -Wconversion -Wunused-variable
+
+BIN_DIR := bin
+TARGET := $(BIN_DIR)/$(NAME)
+SRC := src/main.c
+
+.PHONY: all run clean format
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+
+run: all
+	./$(TARGET)
+
+clean:
+	rm -rf $(BIN_DIR)
+
+format:
+	clang-format -i src/*.c
+```
+
+_______________________________________________________________________________
+
 Add this to the `src/main.c` file
 
 ```c
