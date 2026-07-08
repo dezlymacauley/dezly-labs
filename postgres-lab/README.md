@@ -151,6 +151,17 @@ mise query
 ```
 _______________________________________________________________________________
 
+Your prompt should look like this
+
+```
+postgres_lab 🔎
+```
+_______________________________________________________________________________
+
+To exit type `\q` and press enter.
+
+_______________________________________________________________________________
+
 When you are done using Postgres Lab,
 run this command to shutdown the Docker container.
 
