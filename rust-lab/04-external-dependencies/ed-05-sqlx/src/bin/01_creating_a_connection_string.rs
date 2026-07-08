@@ -64,17 +64,30 @@ fn main() {
     let host = env::var("HOST").expect("HOST is not set");
 
     let port = env::var("PORT").expect("PORT is not set");
-    
+
     let user_name = env::var("USER_NAME").expect("USER_NAME is not set");
 
     let user_password =
         env::var("USER_PASSWORD").expect("USER_PASSWORD is not set");
 
-    println!("DATABASE_NAME: {database_name}");
-    println!("HOST: {host}");
-    println!("PORT: {port}");
-    println!("USER_NAME: {user_name}");
-    println!("USER_PASSWORD: {user_password}");
+    //_________________________________________________________________________
+
+    // STEP: 3 => Use the Rust variables to create a connection string
+    // that will be used to connect to the database
+
+    // This is the syntax that Postgres expects:
+    // database_type://username:password@host:port/database_name
+
+    // This is known as URI (Uniform Resource Identifier)
+    // It is not a file path, so you don't need to worry about the `//`,
+    // because the URI is platform independent.
+
+    let connection_string: String = format!(
+        // database_type://username:password@host:port/database_name
+        "postgres://{user_name}:{user_password}@{host}:{port}/{database_name}"
+    );
+
+    println!("\nconnection_string: {connection_string}\n");
 
     //_________________________________________________________________________
 }
