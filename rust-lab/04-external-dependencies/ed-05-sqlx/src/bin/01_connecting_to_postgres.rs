@@ -1,18 +1,18 @@
 /*
     ABOUT: Connecting to Postgres
-    
+
     ___________________________________________________________________________
 
     Install the following dependencies:
-    
+
     cargo add sqlx --features postgres,runtime-tokio
 
     cargo add tokio --features full
 
     cargo add dotenvy
-    
+
     ___________________________________________________________________________
-    
+
     Create a `.env` file at the root of this project
 
     Use the file `.env.example` as a guide for what should be in the `.env`
@@ -23,7 +23,15 @@
 
 use std::path::PathBuf;
 
+use dotenvy::Error;
+
+use std::env;
+
 fn main() {
+    //_________________________________________________________________________
+
+    // STEP: 1 => Use `dotenvy` to load the variables listed in the
+    // `.env` file into the process environment
 
     // This is how you get the absolute file path in Rust
     let project_root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
@@ -31,8 +39,42 @@ fn main() {
     // This is how you get the absolute file path of the `.env` file
     let dot_env_file_path: PathBuf = project_root.join(".env");
 
-    println!("Does .env file exist? {}", dot_env_file_path.exists());
+    let dotenvy_status: Result<(), Error> =
+        dotenvy::from_path(dot_env_file_path);
 
-    // assert!();
+    match dotenvy_status {
+        Ok(()) => {
+            println!("\nSuccessfully loaded `.env` variables\n");
+        }
+        Err(error_message) => {
+            println!("\nFailed to load `.env` variables: {error_message}\n");
+            // Exit the program after showing the error message above.
+            return;
+        }
+    }
 
+    //_________________________________________________________________________
+
+    // STEP: 2 => Use `env::var()` save environment variables from
+    // the process environment into Rust variables.
+
+    let database_name =
+        env::var("DATABASE_NAME").expect("DATABASE_NAME is not set");
+
+    let host = env::var("HOST").expect("HOST is not set");
+
+    let port = env::var("PORT").expect("PORT is not set");
+    
+    let user_name = env::var("USER_NAME").expect("USER_NAME is not set");
+
+    let user_password =
+        env::var("USER_PASSWORD").expect("USER_PASSWORD is not set");
+
+    println!("DATABASE_NAME: {database_name}");
+    println!("HOST: {host}");
+    println!("PORT: {port}");
+    println!("USER_NAME: {user_name}");
+    println!("USER_PASSWORD: {user_password}");
+
+    //_________________________________________________________________________
 }
