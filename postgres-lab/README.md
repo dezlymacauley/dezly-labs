@@ -14,6 +14,26 @@ dezly-labs/postgres-lab
 ```
 _______________________________________________________________________________
 
+Create a `.pgpass` file
+
+Add this to the file
+
+```bash
+127.0.0.1:5432:postgres:postgres:postgres
+```
+The syntax is:
+
+host:port:database:username:password
+
+_______________________________________________________________________________
+
+Restrict the permissions of the file
+
+```bash
+chmod 600 .pgpass
+```
+_______________________________________________________________________________
+
 Give mise permission to read from the `mise.toml` file 
 
 ```bash

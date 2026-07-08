@@ -15,7 +15,6 @@ set -eu
 : "${PGCLI_DB_NAME:?Missing PGCLI_DB_NAME}"
 : "${PGCLI_DB_HOST:?Missing PGCLI_DB_HOST}"
 : "${PGCLI_DB_PORT:?Missing PGCLI_DB_PORT}"
-: "${PGCLI_DB_PORT:?Missing PGCLI_DB_PORT}"
 : "${PGCLI_CONFIG_FILE:?Missing PGCLI_CONFIG_FILE}"
 
 #______________________________________________________________________________

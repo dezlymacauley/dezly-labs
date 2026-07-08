@@ -11,8 +11,9 @@ python.uv_venv_auto = "source"
 [env]
 # These environment variables are required by pgcli to create 
 # a connection string when using the command `mise query` 
-PGCLI_LOGIN_USER_NAME = "{{ env.USER }}"
+PGCLI_LOGIN_USER_NAME = "postgres"
 PGCLI_DB_NAME = "postgres"
 PGCLI_DB_HOST = "127.0.0.1"
 PGCLI_DB_PORT = "5432"
 PGCLI_CONFIG_FILE = ".pgcli_config.ini"
+PGPASSFILE = ".pgpass"
