@@ -1,5 +1,5 @@
 [workspace]
 resolver = "3"
-members = ["ed-05-sqlx"
-
+members = [
+    "ed-05-sqlx"
 ]
