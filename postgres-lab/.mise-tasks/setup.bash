@@ -9,6 +9,7 @@ rm -rf .venv
 uv sync
 
 # Start the Docker service
+echo
 sudo systemctl start docker.service docker.socket
 
 # Run the Postgres Lab Docker container

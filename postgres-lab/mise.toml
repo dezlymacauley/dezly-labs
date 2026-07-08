@@ -6,7 +6,7 @@ postgres = "latest"
 uv = "latest"
 
 [settings]
-python.uv_venv_auto = "source"
+python.uv_venv_auto = true
 
 [env]
 # These environment variables are required by pgcli to create 
