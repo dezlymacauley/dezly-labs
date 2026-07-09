@@ -74,6 +74,39 @@
     
     ___________________________________________________________________________
 
+    If you connect to the database using pgcli, You should see two tables
+
+    postgres_lab 🔎
+    \dt
+    +--------+------------------+-------+----------+
+    | Schema | Name             | Type  | Owner    |
+    |--------+------------------+-------+----------|
+    | public | _sqlx_migrations | table | postgres |
+    | public | tags             | table | postgres |
+    +--------+------------------+-------+----------+
+
+    ___________________________________________________________________________
+    
+    The `_sqlx_migrations` table is automatically created by the sqlx-cli 
+    when you run the command `sqlx migrate run`.
+
+    sqlx uses this table to keep track of which migrations 
+    it has already run.
+    ___________________________________________________________________________
+
+    postgres_lab 🔎
+    \d tags
+    +--------+--------+----------------------------------------+
+    | Column | Type   | Modifiers                              |
+    |--------+--------+----------------------------------------|
+    | id     | bigint |  not null generated always as identity |
+    | name   | text   |  not null                              |
+    +--------+--------+----------------------------------------+
+    Indexes:
+        "tags_pkey" PRIMARY KEY, btree (id)
+        "tags_name_key" UNIQUE CONSTRAINT, btree (name)
+
+    ___________________________________________________________________________
 */
 
 // Standard Library Imports
