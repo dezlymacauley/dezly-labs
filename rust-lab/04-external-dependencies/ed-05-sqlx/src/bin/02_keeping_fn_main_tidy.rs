@@ -3,8 +3,10 @@
 
     ___________________________________________________________________________
 
-    The first way to keep `fn main` tidy is to group the logic of the program
-    into function that perform a specific task.
+    1. group the logic of the program into function that perform
+    a specific task.
+
+    2. Create a struct for the configuration settings of the program.
 
     ___________________________________________________________________________
 */
@@ -29,6 +31,30 @@ fn load_dot_env() -> Result<(), dotenvy::Error> {
     dotenvy::from_path(dot_env_file_path)
 }
 
+struct Config {
+    database_name: String,
+    host: String,
+    port: String,
+    user_name: String,
+    user_password: String,
+}
+
+
+impl Config {
+
+    fn from_dot_env_file() -> Result<Config, env::VarError> {
+        Ok(
+            Config {
+                database_name: env::var("DATABASE_NAME")?,
+                host: env::var("HOST")?,
+                port: env::var("PORT")?,
+                user_name: env::var("USER_NAME")?,
+                user_password: env::var("USER_PASSWORD")?,
+            }
+        )   
+    }
+}
+
 fn main() {
     //_________________________________________________________________________
 
@@ -50,17 +76,17 @@ fn main() {
     // STEP: 2 => Use `env::var()` save environment variables from
     // the process environment into Rust variables.
 
-    // let database_name =
-    //     env::var("DATABASE_NAME").expect("DATABASE_NAME is not set");
-    //
-    // let host = env::var("HOST").expect("HOST is not set");
-    //
-    // let port = env::var("PORT").expect("PORT is not set");
-    //
-    // let user_name = env::var("USER_NAME").expect("USER_NAME is not set");
-    //
-    // let user_password =
-    //     env::var("USER_PASSWORD").expect("USER_PASSWORD is not set");
+    let database_name =
+        env::var("DATABASE_NAME").expect("DATABASE_NAME is not set");
+
+    let host = env::var("HOST").expect("HOST is not set");
+
+    let port = env::var("PORT").expect("PORT is not set");
+
+    let user_name = env::var("USER_NAME").expect("USER_NAME is not set");
+
+    let user_password =
+        env::var("USER_PASSWORD").expect("USER_PASSWORD is not set");
 
     //_________________________________________________________________________
 
@@ -74,12 +100,12 @@ fn main() {
     // It is not a file path, so you don't need to worry about the `//`,
     // because the URI is platform independent.
 
-    // let connection_string: String = format!(
-    //     // database_type://username:password@host:port/database_name
-    //     "postgres://{user_name}:{user_password}@{host}:{port}/{database_name}"
-    // );
-    //
-    // println!("\nconnection_string: {connection_string}\n");
+    let connection_string: String = format!(
+        // database_type://username:password@host:port/database_name
+        "postgres://{user_name}:{user_password}@{host}:{port}/{database_name}"
+    );
+
+    println!("\nconnection_string: {connection_string}\n");
 
     //_________________________________________________________________________
 
