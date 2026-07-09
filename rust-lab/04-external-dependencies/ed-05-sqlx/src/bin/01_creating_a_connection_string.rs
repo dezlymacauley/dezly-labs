@@ -58,36 +58,45 @@ fn main() {
     // STEP: 2 => Use `env::var()` save environment variables from
     // the process environment into Rust variables.
 
-    let database_name =
-        env::var("DATABASE_NAME").expect("DATABASE_NAME is not set");
-
-    let host = env::var("HOST").expect("HOST is not set");
-
-    let port = env::var("PORT").expect("PORT is not set");
+    let database_type =
+        env::var("DATABASE_TYPE").expect("DATABASE_TYPE is not set");
 
     let user_name = env::var("USER_NAME").expect("USER_NAME is not set");
 
     let user_password =
         env::var("USER_PASSWORD").expect("USER_PASSWORD is not set");
 
+    let port = env::var("PORT").expect("PORT is not set");
+
+    let host = env::var("HOST").expect("HOST is not set");
+
+    let database_name =
+        env::var("DATABASE_NAME").expect("DATABASE_NAME is not set");
+
     //_________________________________________________________________________
 
-    // STEP: 3 => Use the Rust variables to create a connection string
-    // that will be used to connect to the database
-
+    // STEP: 3 => Create a Postgres connection URI
+    
     // This is the syntax that Postgres expects:
     // database_type://username:password@host:port/database_name
 
-    // This is known as URI (Uniform Resource Identifier)
-    // It is not a file path, so you don't need to worry about the `//`,
-    // because the URI is platform independent.
+    // Please not that this if not a file path.
+    // This is a URI (Uniform Resource Identifier) which is platform
+    // independent so you don't need to worry about the `//`.
+    // You can just store a URI in a String.
 
-    let connection_string: String = format!(
+    let postgres_connection_uri: String = format!(
         // database_type://username:password@host:port/database_name
-        "postgres://{user_name}:{user_password}@{host}:{port}/{database_name}"
+        "{}://{}:{}@{}:{}/{}",
+        database_type,
+        user_name,
+        user_password,
+        host,
+        port,
+        database_name
     );
 
-    println!("\nconnection_string: {connection_string}\n");
+    println!("\nconnection_string: {postgres_connection_uri}\n");
 
     //_________________________________________________________________________
 }

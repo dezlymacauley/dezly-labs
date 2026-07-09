@@ -95,7 +95,7 @@ fn main() {
     // Please not that this if not a file path.
     // This is a URI (Uniform Resource Identifier) which is platform
     // independent so you don't need to worry about the `//`.
-    // You can just store a URI in a string.
+    // You can just store a URI in a String.
 
     // let connection_string: String = format!(
     //     // database_type://username:password@host:port/database_name
