@@ -87,15 +87,15 @@ fn main() {
 
     //_________________________________________________________________________
 
-    // STEP: 3 => Use the Rust variables to create a connection string
-    // that will be used to connect to the database
+    // STEP: 3 => Create a Postgres connection URI
 
     // This is the syntax that Postgres expects:
     // database_type://username:password@host:port/database_name
 
-    // This is known as URI (Uniform Resource Identifier)
-    // It is not a file path, so you don't need to worry about the `//`,
-    // because the URI is platform independent.
+    // Please not that this if not a file path.
+    // This is a URI (Uniform Resource Identifier) which is platform
+    // independent so you don't need to worry about the `//`.
+    // You can just store a URI in a string.
 
     // let connection_string: String = format!(
     //     // database_type://username:password@host:port/database_name
@@ -103,8 +103,6 @@ fn main() {
     // );
     //
     // println!("\nconnection_string: {connection_string}\n");
-
-    //_________________________________________________________________________
 
     //_________________________________________________________________________
 }
