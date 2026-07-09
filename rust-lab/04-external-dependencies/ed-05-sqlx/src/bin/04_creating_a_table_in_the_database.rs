@@ -1,8 +1,26 @@
 /*
-    ABOUT: Connecting to Postgres
+    ABOUT: Creating a table in the database
 
     ___________________________________________________________________________
 
+    I want to create a table called `tags`
+
+    One of the things I've always wanted to build is a high-performance
+    tag-centric image board.
+    ___________________________________________________________________________
+
+    Imagine an art gallery website that has millions of images.
+
+    Each image has multiple tags, including the artist name, 
+    as well as some words to describe that image, 
+    so that it has a higher chance of being shown to a user searching
+    for the image.
+
+    E.g. There is a artwork by an artist called sakimichan,
+    that has a white-haired woman with blue eyes, wearing a chinese dress.
+
+    This image would have tags like:
+    `white-haired_woman`, `blue-eyes`
 
     ___________________________________________________________________________
 */
