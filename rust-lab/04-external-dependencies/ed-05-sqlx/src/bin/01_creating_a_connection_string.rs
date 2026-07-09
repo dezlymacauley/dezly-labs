@@ -80,7 +80,7 @@ fn main() {
     // This is the syntax that Postgres expects:
     // database_type://username:password@host:port/database_name
 
-    // Please not that this if not a file path.
+    // Please not that this is not a file path.
     // This is a URI (Uniform Resource Identifier) which is platform
     // independent so you don't need to worry about the `//`.
     // You can just store a URI in a String.
