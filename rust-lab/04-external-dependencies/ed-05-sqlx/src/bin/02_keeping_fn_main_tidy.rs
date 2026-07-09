@@ -31,6 +31,7 @@ fn load_dot_env() -> Result<(), dotenvy::Error> {
     dotenvy::from_path(dot_env_file_path)
 }
 
+#[derive(Debug)]
 struct Config {
     database_name: String,
     host: String,
@@ -39,12 +40,11 @@ struct Config {
     user_password: String,
 }
 
-
 impl Config {
 
-    fn from_dot_env_file() -> Result<Config, env::VarError> {
+    fn from_dot_env_file() -> Result<Self, env::VarError> {
         Ok(
-            Config {
+            Self {
                 database_name: env::var("DATABASE_NAME")?,
                 host: env::var("HOST")?,
                 port: env::var("PORT")?,
@@ -58,8 +58,7 @@ impl Config {
 fn main() {
     //_________________________________________________________________________
 
-    // STEP: 1 => Load the variables listed in the `.env` file into the
-    // process environment of the program
+    // STEP: 1 => Load the `.env` file variables into the process environment
 
     if let Err(error_message) = load_dot_env() {
         eprintln!("\n❌ Failed to load `.env` variables: {error_message}\n");
@@ -73,20 +72,18 @@ fn main() {
 
     //_________________________________________________________________________
 
-    // STEP: 2 => Use `env::var()` save environment variables from
-    // the process environment into Rust variables.
+    // STEP: 2 => Create a configuration for the program
 
-    let database_name =
-        env::var("DATABASE_NAME").expect("DATABASE_NAME is not set");
+    let config: Config = match Config::from_dot_env_file() {
+        Ok(config) => config,
+        Err(error_mesage) => {
+            eprintln!("\n❌ Failed to create a config:");
+            eprintln!("\n{error_mesage}\n");
+            return;
+        }
+    };
 
-    let host = env::var("HOST").expect("HOST is not set");
-
-    let port = env::var("PORT").expect("PORT is not set");
-
-    let user_name = env::var("USER_NAME").expect("USER_NAME is not set");
-
-    let user_password =
-        env::var("USER_PASSWORD").expect("USER_PASSWORD is not set");
+    println!("config: {config:#?}");
 
     //_________________________________________________________________________
 
@@ -100,12 +97,12 @@ fn main() {
     // It is not a file path, so you don't need to worry about the `//`,
     // because the URI is platform independent.
 
-    let connection_string: String = format!(
-        // database_type://username:password@host:port/database_name
-        "postgres://{user_name}:{user_password}@{host}:{port}/{database_name}"
-    );
-
-    println!("\nconnection_string: {connection_string}\n");
+    // let connection_string: String = format!(
+    //     // database_type://username:password@host:port/database_name
+    //     "postgres://{user_name}:{user_password}@{host}:{port}/{database_name}"
+    // );
+    //
+    // println!("\nconnection_string: {connection_string}\n");
 
     //_________________________________________________________________________
 
