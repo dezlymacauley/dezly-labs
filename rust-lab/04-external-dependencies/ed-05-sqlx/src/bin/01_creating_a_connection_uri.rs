@@ -1,5 +1,5 @@
 /*
-    ABOUT: Creating a connection string
+    ABOUT: Creating a connection URI
 
     ___________________________________________________________________________
 
@@ -85,13 +85,13 @@ fn main() {
     // independent so you don't need to worry about the `//`.
     // You can just store a URI in a String.
 
-    let postgres_connection_uri: String = format!(
+    let connection_uri: String = format!(
         // database_type://username:password@host:port/database_name
         "{}://{}:{}@{}:{}/{}",
         database_type, user_name, user_password, host, port, database_name
     );
 
-    println!("\npostgres_connection_uri: {postgres_connection_uri}\n");
+    println!("\nconnection_uri: {connection_uri}\n");
 
     //_________________________________________________________________________
 }

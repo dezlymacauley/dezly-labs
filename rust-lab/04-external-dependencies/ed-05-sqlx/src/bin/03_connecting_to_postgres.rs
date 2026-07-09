@@ -14,6 +14,10 @@
 // Standard Library Imports
 use std::env;
 use std::path::PathBuf;
+use std::time::Duration;
+
+// External Dependencies
+use sqlx::postgres::PgPoolOptions;
 
 // This function will attempt to load the variables listed in the `.env` file
 // 1. If `load_dot_env` succeeds it will return an empty tuple (aka a unit)
@@ -53,7 +57,8 @@ impl Config {
     }
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
     //_________________________________________________________________________
 
     // STEP: 1 => Load the `.env` file variables into the process environment
@@ -104,7 +109,26 @@ fn main() {
         config.database_name
     );
 
-    println!("\nconnection_uri: {connection_uri}\n");
+    //_________________________________________________________________________
+    
+    // STEP: 4 => Connect to Postgres
+
+    // An asynchronous pool of SQLx database connections for Postgres
+    let _connection_pool = match PgPoolOptions::new()
+        .max_connections(10)
+        .acquire_timeout(Duration::from_secs(5))
+        .connect(&connection_uri)
+        .await
+    {
+        Ok(pool) => pool,
+        Err(error) => {
+            eprintln!("\n❌ Failed to connect to Postgres:");
+            eprintln!("{error}\n");
+            return;
+        }
+    };
+
+    println!("\n✅ Connected to Postgres\n");
 
     //_________________________________________________________________________
 }
