@@ -44,7 +44,7 @@ fn main() {
 
     match dotenvy_status {
         Ok(()) => {
-            println!("\nSuccessfully loaded `.env` variables");
+            println!("\n✅ Successfully loaded `.env` variables");
         }
         Err(error_message) => {
             println!("\nFailed to load `.env` variables: {error_message}\n");
@@ -76,7 +76,7 @@ fn main() {
     //_________________________________________________________________________
 
     // STEP: 3 => Create a Postgres connection URI
-    
+
     // This is the syntax that Postgres expects:
     // database_type://username:password@host:port/database_name
 
@@ -88,15 +88,10 @@ fn main() {
     let postgres_connection_uri: String = format!(
         // database_type://username:password@host:port/database_name
         "{}://{}:{}@{}:{}/{}",
-        database_type,
-        user_name,
-        user_password,
-        host,
-        port,
-        database_name
+        database_type, user_name, user_password, host, port, database_name
     );
 
-    println!("\nconnection_string: {postgres_connection_uri}\n");
+    println!("\npostgres_connection_uri: {postgres_connection_uri}\n");
 
     //_________________________________________________________________________
 }

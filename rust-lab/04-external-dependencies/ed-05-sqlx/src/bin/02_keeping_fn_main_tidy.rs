@@ -31,27 +31,25 @@ fn load_dot_env() -> Result<(), dotenvy::Error> {
     dotenvy::from_path(dot_env_file_path)
 }
 
-#[derive(Debug)]
 struct Config {
-    database_name: String,
-    host: String,
-    port: String,
+    database_type: String,
     user_name: String,
     user_password: String,
+    host: String,
+    port: String,
+    database_name: String,
 }
 
 impl Config {
-
     fn from_dot_env_file() -> Result<Self, env::VarError> {
-        Ok(
-            Self {
-                database_name: env::var("DATABASE_NAME")?,
-                host: env::var("HOST")?,
-                port: env::var("PORT")?,
-                user_name: env::var("USER_NAME")?,
-                user_password: env::var("USER_PASSWORD")?,
-            }
-        )   
+        Ok(Self {
+            database_type: env::var("DATABASE_TYPE")?,
+            user_name: env::var("USER_NAME")?,
+            user_password: env::var("USER_PASSWORD")?,
+            host: env::var("HOST")?,
+            port: env::var("PORT")?,
+            database_name: env::var("DATABASE_NAME")?,
+        })
     }
 }
 
@@ -83,8 +81,6 @@ fn main() {
         }
     };
 
-    println!("config: {config:#?}");
-
     //_________________________________________________________________________
 
     // STEP: 3 => Create a Postgres connection URI
@@ -97,12 +93,18 @@ fn main() {
     // independent so you don't need to worry about the `//`.
     // You can just store a URI in a String.
 
-    // let connection_string: String = format!(
-    //     // database_type://username:password@host:port/database_name
-    //     "postgres://{user_name}:{user_password}@{host}:{port}/{database_name}"
-    // );
-    //
-    // println!("\nconnection_string: {connection_string}\n");
+    let postgres_connection_uri: String = format!(
+        // database_type://username:password@host:port/database_name
+        "{}://{}:{}@{}:{}/{}",
+        config.database_type,
+        config.user_name,
+        config.user_password,
+        config.host,
+        config.port,
+        config.database_name
+    );
+
+    println!("\npostgres_connection_uri: {postgres_connection_uri}\n");
 
     //_________________________________________________________________________
 }
