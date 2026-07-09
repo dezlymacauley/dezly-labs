@@ -212,7 +212,7 @@ async fn main() {
     // STEP: 4 => Connect to Postgres
 
     // An asynchronous pool of SQLx database connections for Postgres
-    let connection_pool = match PgPoolOptions::new()
+    let _connection_pool = match PgPoolOptions::new()
         .max_connections(10)
         .acquire_timeout(Duration::from_secs(5))
         .connect(&connection_uri)
@@ -227,26 +227,6 @@ async fn main() {
     };
 
     println!("\n✅ Connected to Postgres\n");
-
-    //_________________________________________________________________________
-    
-    // STEP: 6 => Create the `tags` table
-
-
-    let _ct = sqlx::query(sql).execute(&connection_pool).await;
-
-// // Postgres and SQLite
-// let results = sqlx::query(
-//     // Notice how we only have to bind the argument once and we can use it multiple times:
-//     "SELECT * FROM articles
-//      WHERE title LIKE '%' || $1 || '%'
-//      OR content LIKE '%' || $1 || '%'"
-// )
-//     .bind(user_input)
-//     .fetch_all(&mut conn)
-//     .await?;
-
-
 
     //_________________________________________________________________________
     
