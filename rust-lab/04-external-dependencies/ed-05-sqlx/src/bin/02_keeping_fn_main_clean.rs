@@ -1,57 +1,54 @@
 /*
-    ABOUT: Creating a connection string
+    ABOUT: Keeping `fn main` clean
 
     ___________________________________________________________________________
-
-    Install the following dependencies:
-
-    cargo add sqlx --features postgres,runtime-tokio
-
-    cargo add tokio --features full
-
-    cargo add dotenvy
-
-    ___________________________________________________________________________
-
-    Create a `.env` file at the root of this project
-
-    Use the file `.env.example` as a guide for what should be in the `.env`
-    file
 
     ___________________________________________________________________________
 */
 
+// Standard Library Imports
 use std::path::PathBuf;
-
-use dotenvy::Error;
-
 use std::env;
 
-fn main() {
-    //_________________________________________________________________________
+// External Dependencies
+use dotenvy::Error;
 
-    // STEP: 1 => Use `dotenvy` to load the variables listed in the
-    // `.env` file into the process environment
+fn load_dot_env() -> Result<(), Error> {
 
-    // This is how you get the absolute file path in Rust
+    // This is the absolute path to the Cargo.toml file of the project.
+    // The Cargo.toml file is always at the root of a Rust project.
     let project_root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
 
-    // This is how you get the absolute file path of the `.env` file
+    // The absolute file path of the `.env` file
     let dot_env_file_path: PathBuf = project_root.join(".env");
 
-    let dotenvy_status: Result<(), Error> =
-        dotenvy::from_path(dot_env_file_path);
+    // In Rust, the last expression of a function is automatically returned.
+    // `from_path` returns a Result enum.
+    // Result <(), Error> 
+    dotenvy::from_path(dot_env_file_path)
+}
 
-    match dotenvy_status {
-        Ok(()) => {
-            println!("\nSuccessfully loaded `.env` variables");
-        }
-        Err(error_message) => {
-            println!("\nFailed to load `.env` variables: {error_message}\n");
-            // Exit the program after showing the error message above.
-            return;
-        }
-    }
+fn main() {
+
+    //_________________________________________________________________________
+
+    // STEP: 1 => Load the variables listed in the `.env` file into the
+    // process environment of the program
+
+
+    // let dotenvy_status: Result<(), Error> =
+    //     dotenvy::from_path(dot_env_file_path);
+    //
+    // match dotenvy_status {
+    //     Ok(()) => {
+    //         println!("\nSuccessfully loaded `.env` variables");
+    //     }
+    //     Err(error_message) => {
+    //         println!("\nFailed to load `.env` variables: {error_message}\n");
+    //         // Exit the program after showing the error message above.
+    //         return;
+    //     }
+    // }
 
     //_________________________________________________________________________
 
@@ -88,6 +85,13 @@ fn main() {
     );
 
     println!("\nconnection_string: {connection_string}\n");
+
+    //_________________________________________________________________________
+    
+
+
+
+
 
     //_________________________________________________________________________
 }
