@@ -61,10 +61,19 @@
     Open the `migrations/20260709200928_create_tags_table.sql` file,
     and replace the contents of the file with this:
 
-
-
+    CREATE TABLE IF NOT EXISTS tags (
+        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        name TEXT NOT NULL UNIQUE
+    );
 
     ___________________________________________________________________________
+    
+    Make sure your database is running then run this command
+    
+    sqlx migrate run
+    
+    ___________________________________________________________________________
+
 */
 
 // Standard Library Imports
