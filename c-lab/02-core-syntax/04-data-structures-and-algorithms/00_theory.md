@@ -34,7 +34,8 @@ _______________________________________________________________________________
 
 ## How to measure the running time of an algorithm
 
-Asymptotic Analysis
+Asymptotic Analysis (The study of how the running time of an algorithm
+increases over time)
 
 Analyze the runninng time of the algorithm based on the input size.
 
@@ -42,6 +43,23 @@ You don't calculate the exact running time.
 
 The running time of the algorithm depends on the size of the input.
 
-n = Size of input
+_______________________________________________________________________________
+
+n = Size of input (E.g. size of array)
+
+_______________________________________________________________________________
+
+An inefficient algorithm is an algorithm where the running time increases
+exponentially as the input size increases.
+
+_______________________________________________________________________________
+
+When using Asymptotic Analysis, you don't look at the the exact time an
+algorithm takes to complete.
+
+You try to find the rate of growth of the running time.
+_______________________________________________________________________________
+
+This is done using a mathematical tool called the `Big O Notation`
 
 _______________________________________________________________________________
