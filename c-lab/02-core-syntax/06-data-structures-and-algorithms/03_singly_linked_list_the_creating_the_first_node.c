@@ -5,14 +5,15 @@
 
 */
 
-struct Node {
+typedef struct Node {
     int data;
     struct Node* next_node;
-};
+} Node;
 
 int main() {
 
-    struct Node* start_of_list = nullptr;
+    Node* start_of_list = nullptr;
+    Node* end_of_list = nullptr;
 
     return 0;
 }
