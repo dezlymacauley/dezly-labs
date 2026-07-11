@@ -60,13 +60,37 @@ Node* create_new_node(int data) {
 
 // SECTION: 2 => Linked List definition
 
+typedef struct LinkedList {
+    Node* start_of_list;
+    Node* end_of_list;
+    int number_of_nodes;
+} LinkedList;
 
+// Create list function
+LinkedList create_linked_list(int data) {
 
+    LinkedList list;
+
+    Node* new_node = create_new_node(data);
+
+    if (new_node == nullptr) {
+        list.start_of_list = nullptr;
+        list.end_of_list = nullptr;
+        list.number_of_nodes = 0;
+
+        return list;
+    }
+
+    list.start_of_list = new_node;
+    list.end_of_list = new_node;
+    list.number_of_nodes = 1;
+
+    return list;
+}
 
 //_____________________________________________________________________________
 
 int main() {
-
 
     return 0;
 }
