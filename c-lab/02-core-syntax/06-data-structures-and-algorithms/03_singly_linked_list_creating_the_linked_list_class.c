@@ -1,5 +1,5 @@
 /*
-    ABOUT: Singly Linked List - Creating the first Node in the list
+    ABOUT: Singly Linked List - Creating the Linked List struct
 
     ___________________________________________________________________________
 
@@ -25,7 +25,7 @@ Node* create_new_node(int data) {
     return new_node;
 }
 
-int main() {
+int main(void) {
 
     Node* start_of_list = nullptr;
     Node* end_of_list = nullptr;
