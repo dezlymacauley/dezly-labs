@@ -31,6 +31,7 @@
 
 */
 
+#include <stdlib.h>
 #include <stdio.h>
 
 // This whole struct is 16 bytes (128 bits) because I'm using 
@@ -46,6 +47,41 @@ typedef struct Node {
                             // On a 32 bit system, this would:
                             // 4 bytes (32 bits)
 } Node;
+
+// C does not have constructors. 
+// You have to create one manually with a function that will create a new
+// node in heap memory, and return the memory address of the Node that was
+// created.
+
+/*
+    This function will return either *Node or nullptr 
+
+    Node*       If the Node was created successfully
+
+    nullptr     If the Node could not be created 
+                due to a memory allocation failure 
+                by the malloc function.
+*/
+Node* create_new_node(int data) {
+
+    // Since this is heap allocation, 
+    // you first have to use malloc to allocate enough memory on the heap
+    // to store the Node.
+    
+    // In this case, malloc will allocate 16 bytes because the Node data type
+    // is 16 bytes.
+    Node* new_node = malloc(sizeof(Node));
+
+    // Check if the memory was allocated successfully.
+    if (new_node == nullptr) {
+        return nullptr;
+    }
+
+    new_node->data = data;
+    new_node->next_node = nullptr;
+
+    return new_node;
+}
 
 int main() {
 
