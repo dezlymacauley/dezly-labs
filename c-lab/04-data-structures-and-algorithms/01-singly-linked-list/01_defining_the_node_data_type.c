@@ -1,5 +1,5 @@
 /*
-    ABOUT: Singly Linked List - Node
+    ABOUT: Singly Linked List - Defining the `Node` data type
 
     What's the difference between an array an a linked list?
     1. An array is statically allocated. This means that they have a fixed
