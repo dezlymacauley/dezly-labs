@@ -35,7 +35,7 @@
 
 // This whole struct is 16 bytes (128 bits) because I'm using 
 // a 64 bit machine.
-struct Node {
+typedef struct Node {
     int data; // 4 bytes (32 bits)
 
     // 4 bytes of padding are automatically inserted here
@@ -45,11 +45,11 @@ struct Node {
 
                             // On a 32 bit system, this would:
                             // 4 bytes (32 bits)
-};
+} Node;
 
 int main() {
 
-    printf("The size of Node is %zu bytes\n", sizeof(struct Node));
+    printf("The size of each Node is %zu bytes\n", sizeof(Node));
     // The size of Node is 16 bytes
 
     return 0;
