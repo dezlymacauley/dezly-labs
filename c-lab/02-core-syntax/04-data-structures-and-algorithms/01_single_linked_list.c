@@ -31,11 +31,26 @@
 
 */
 
-struct node {
-    int data;
-    struct node* next_node;
+#include <stdio.h>
+
+// This whole struct is 16 bytes (128 bits) because I'm using 
+// a 64 bit machine.
+struct Node {
+    int data; // 4 bytes (32 bits)
+
+    // 4 bytes of padding are automatically inserted here
+    // so that the pointer begins at an address divisible by 8.
+
+    struct Node* next_node; // 8 bytes (64 bits)
+
+                            // On a 32 bit system, this would:
+                            // 4 bytes (32 bits)
 };
 
 int main() {
+
+    printf("The size of Node is %zu bytes\n", sizeof(struct Node));
+    // The size of Node is 16 bytes
+
     return 0;
 }
