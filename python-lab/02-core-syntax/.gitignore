@@ -1,0 +1,2 @@
+# Used by ruff to speed up code formatting
+.ruff_cache/ 
