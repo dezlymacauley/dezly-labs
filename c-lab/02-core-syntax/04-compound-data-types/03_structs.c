@@ -6,10 +6,13 @@
 #include <stdio.h>
 
 // A struct is declared outside a function
-struct Person {
+typedef struct Person {
     int age; // 4 bytes (32 bits)
     float height; // 4 bytes (32 bits)
-};
+} Person;
+
+// typedef creates an alias for `struct Person`,
+// so that you can just use `Person` as a data type.
 
 int main(void) {
 
@@ -17,14 +20,14 @@ int main(void) {
     
     // EXAMPLE: 1 => Printing the size of a struct in bytes
 
-    printf("The size of person_one is %zu bytes\n", sizeof(struct Person));
+    printf("The size of person_one is %zu bytes\n", sizeof(Person));
     // The size of person_one is 8 bytes
 
     //_________________________________________________________________________
     
     // EXAMPLE: 2 => Creating an instance of a struct
 
-    struct Person person_one = {
+    Person person_one = {
         .age = 25,
         .height = 1.72f,
     };
@@ -46,7 +49,7 @@ int main(void) {
     // is `struct Person*`. This means "a pointer to a Person struct"
     // `&person_one` is how you tell C that you want to store
     // the memory address of person_one, and not its value.
-    struct Person* memory_address_of_person_one = &person_one;
+    Person* memory_address_of_person_one = &person_one;
 
     //_________________________________________________________________________
 
