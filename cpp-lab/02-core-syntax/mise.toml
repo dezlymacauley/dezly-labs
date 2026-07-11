@@ -1,0 +1,8 @@
+[tools]
+clang = "latest"
+clang-format = "latest"
+
+[tasks.dev]
+description = "Compile and run a single C++ file"
+quiet = true
+run = "sh -c 'cd \"$MISE_ORIGINAL_CWD\" && clang++ -std=c++23 -Wconversion -Wunused-variable -o /tmp/mise-dev-bin \"$1\" && /tmp/mise-dev-bin; rm -f /tmp/mise-dev-bin' --"
