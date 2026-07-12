@@ -1,0 +1,7 @@
+Rust is fast and reliable.
+Learning clap makes CLI development much easier.
+hello world
+Searching files is a common CLI exercise.
+HELLO in uppercase should not match by default.
+Another line with hello in it.
+Goodbye!
