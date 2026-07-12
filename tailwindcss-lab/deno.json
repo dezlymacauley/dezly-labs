@@ -1,0 +1,11 @@
+{
+	"fmt": {
+		"lineWidth": 80,
+		"proseWrap": "always",
+		"useTabs": false,
+		"indentWidth": 2,
+		"semiColons": true,
+		"singleQuote": false
+	},
+	"unstable": ["fmt-component"]
+}

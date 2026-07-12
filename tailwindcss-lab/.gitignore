@@ -1,0 +1,6 @@
+# Build Output
+.deno-deploy/
+.svelte-kit/
+
+# Project dependencies
+node_modules/

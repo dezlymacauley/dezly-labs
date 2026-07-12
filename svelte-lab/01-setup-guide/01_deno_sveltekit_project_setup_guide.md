@@ -278,6 +278,7 @@ Then add these two scripts
 _______________________________________________________________________________
 
 Remove this line
+
 ```
 "@sveltejs/adapter-auto": "^7.0.1",
 ```
