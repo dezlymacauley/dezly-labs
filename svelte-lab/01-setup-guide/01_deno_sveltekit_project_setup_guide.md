@@ -21,9 +21,9 @@ Note: For the rest of this guide,
 run all commands from the `deno-sveltekit-project` directory.
 _______________________________________________________________________________
 
-Creat the project structure
+Create the project structure
 
-```sh
+```bash
 deno x --reload sv create .
 ```
 
@@ -87,7 +87,18 @@ _______________________________________________________________________________
 └
 ```
 
-Press `Enter` to skip ahead without selecting anything.
+Use the `arrow keys` to navigate the menu, and the `space bar` to select
+`tailwindcss`, the press the `Enter` key 
+_______________________________________________________________________________
+
+```
+◆  Which plugins would you like to add?
+│  ◻ typography (@tailwindcss/typography)
+│  ◻ forms
+└
+```
+
+Press the `Enter` key to proceed without selecting any options.
 _______________________________________________________________________________
 
 ```
@@ -107,7 +118,12 @@ _______________________________________________________________________________
 To skip prompts next time, run:
 
 ```bash
-deno run npm:sv@0.16.2 create --template minimal --types ts --install deno .
+deno run npm:sv@0.16.2 create \
+    --template minimal \
+    --types ts \
+    --add \
+        tailwindcss="plugins:none" \
+    --install deno .
 ```
 _______________________________________________________________________________
 
@@ -118,7 +134,8 @@ _______________________________________________________________________________
 
 Use `mise` to ensure that the project is always using the latest 
 version of Deno
-```sh
+
+```bash
 mise use deno@latest
 ```
 _______________________________________________________________________________
@@ -128,7 +145,8 @@ you can just run `mise use tool@the_new_version_you_want`, or you can directly
 edit the mise.toml file
 
 After that, run this command to ensure that your changes have been applied:
-```sh
+
+```bash
 mise install
 ```
 _______________________________________________________________________________
@@ -136,7 +154,8 @@ _______________________________________________________________________________
 ### Creating a Deno configuration file
 
 Create a `deno.json` file
-```sh
+
+```bash
 touch deno.json
 ```
 _______________________________________________________________________________
@@ -144,7 +163,8 @@ _______________________________________________________________________________
 ### Adding additonal dependencies 
 
 Add the official Deno adapter for Svelte as a development dependency.
-```sh
+
+```bash
 deno add -D @deno/svelte-adapter
 ```
 _______________________________________________________________________________
@@ -152,7 +172,8 @@ _______________________________________________________________________________
 ### `.vscode`
 
 Delete the `.vscode` directory
-```sh
+
+```bash
 rm -rf .vscode
 ```
 _______________________________________________________________________________
@@ -160,20 +181,22 @@ _______________________________________________________________________________
 ### `.gitignore`
 
 Replace the contents of the `gitignore` file with this
+
 ```gitignore
 # Build Output
-.deno-deploy
-.svelte-kit
+.deno-deploy/
+.svelte-kit/
 
 # Project dependencies
-node_modules
+node_modules/
 ```
 _______________________________________________________________________________
 
 ### `README.md`
 
 Clear the contents of the `README.md` file
-```sh
+
+```bash
 truncate -s 0 README.md
 ```
 _______________________________________________________________________________
@@ -181,6 +204,7 @@ _______________________________________________________________________________
 ### `deno.json`
 
 Add this to the `deno.json` file
+
 ```json
 {
 	"fmt": {
@@ -214,23 +238,30 @@ _______________________________________________________________________________
 Open the package.json file and look for the `scripts` section
 _______________________________________________________________________________
 
-Change the `dev` script from
+Change the `dev` script from...
+
 ```json
 "dev": "vite dev",
 ```
+_______________________________________________________________________________
 
-To this
+...to this
+
 ```json
 "dev": "vite dev --open --port 6969",
 ```
 _______________________________________________________________________________
 
-Change the `preview` script from
+Change the `preview` script from...
+
 ```json
 "preview": "vite preview",
 ```
 
-To this
+_______________________________________________________________________________
+
+...to this
+
 ```json
 "preview": "vite preview --open --port 6969",
 ```
@@ -268,7 +299,7 @@ _______________________________________________________________________________
 Run this command to let SvelteKit know about the changes made 
 to the `vite.config.ts` file
 
-```sh
+```bash
 deno run prepare
 ```
 _______________________________________________________________________________
@@ -276,22 +307,32 @@ _______________________________________________________________________________
 ### The `src/lib` directory
 
 Clear the contents of the `src/lib/index.ts` file
-```sh
+
+```bash
 truncate -s 0 src/lib/index.ts
+```
+_______________________________________________________________________________
+
+Create a `src/lib/global.css` file
+
+```bash
+touch src/lib/global.css
+```
+_______________________________________________________________________________
+
+Add this to the `src/lib/global.css` file
+
+```css
+@import "tailwindcss";
 ```
 _______________________________________________________________________________
 
 ### The `src/routes` directory
 
 Clear the contents of the `src/routes/+layout.svelte` file
-```sh
-truncate -s 0 src/routes/+layout.svelte
-```
-_______________________________________________________________________________
 
-Clear the contents of the `src/routes/+page.svelte` file
-```sh
-truncate -s 0 src/routes/+page.svelte
+```bash
+truncate -s 0 src/routes/+layout.svelte
 ```
 _______________________________________________________________________________
 
@@ -299,16 +340,21 @@ Add this to the `src/routes/+layout.svelte` file
 
 ```svelte
 <script lang="ts">
-  import favicon from "$lib/assets/favicon.svg";
+  import "$lib/global.css"
+	import favicon from "$lib/assets/favicon.svg";
 
 	let { children } = $props();
 </script>
 
-<svelte:head>
-  <link rel="icon" href={favicon} />
-</svelte:head>
-
+<svelte:head><link rel="icon" href={favicon} /></svelte:head>
 {@render children()}
+```
+_______________________________________________________________________________
+
+Clear the contents of the `src/routes/+page.svelte` file
+
+```bash
+truncate -s 0 src/routes/+page.svelte
 ```
 _______________________________________________________________________________
 
@@ -319,14 +365,23 @@ Add this to the `src/routes/+page.svelte` file
 ```
 _______________________________________________________________________________
 
+Delete the `src/routes/layout.css` file
+
+```bash
+rm -rf src/routes/layout.css
+```
+_______________________________________________________________________________
+
 Run this command to ensure that you project can be built successfully.
-```sh
+
+```bash
 deno task build
 ```
 _______________________________________________________________________________
 
-To run the project, open a separate terminal and run this command:
-```sh
+To run the project, open a separate terminal and run this command.
+
+```bash
 deno task dev
 ```
 _______________________________________________________________________________
