@@ -88,7 +88,7 @@ tab_spaces = 4
 ```
 _______________________________________________________________________________
 
-## How to add a Rust project to the workspace
+## How to add your first Rust project to the workspace
 
 _______________________________________________________________________________
 
@@ -114,9 +114,9 @@ cargo new --vcs none project-01
 `--vcs none` will create the project without creating a `.git` directory.
 _______________________________________________________________________________
 
-Here's how to add a second project. 
+## How to add another Rust project to the workspace
 
-I'm adding another project called `project-02`
+In this example, I'm adding another project called `project-02`
 
 ```toml
 [workspace]
@@ -176,5 +176,103 @@ or if you have just cloned the repo from GitHub, just run this command:
 
 ```bash
 cargo build
+```
+_______________________________________________________________________________
+
+## Creating a project with multiple binaries
+
+In this example, I'm adding another project called `project-03`
+
+```toml
+[workspace]
+resolver = "3"
+members = [
+    "project-01",
+    "project-02",
+    "project-03"
+]
+```
+_______________________________________________________________________________
+
+Create the third project
+
+```bash
+cargo new --vcs none project-03
+```
+_______________________________________________________________________________
+
+The project structure should look like this now
+
+```
+.
+├── .cargo
+│   └── config.toml
+├── .gitignore
+├── project-01
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+├── project-02
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+├── project-03
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+├── Cargo.lock
+├── Cargo.toml
+├── rustfmt.toml
+└── rust-toolchain.toml
+```
+_______________________________________________________________________________
+
+Delete the `project-03/src/` directory
+
+```bash
+rm -rf project-03/src/
+```
+_______________________________________________________________________________
+
+Run the following command 
+
+```bash
+mkdir -p project-03/src/bin/
+touch project-03/src/bin/01_program_one.rs
+touch project-03/src/bin/02_program_two.rs
+```
+_______________________________________________________________________________
+
+Add this to the `project-03/src/bin/01_program_one.rs` file
+
+```rust
+fn main() {
+    println!("Program One")
+}
+```
+_______________________________________________________________________________
+
+Add this to the `project-03/src/bin/02_program_two.rs` file
+
+```rust
+fn main() {
+    println!("Program Two")
+}
+```
+_______________________________________________________________________________
+
+To run `project-03/src/bin/02_program_one.rs`, do this:
+
+First make sure that you are in the `project-03` directory
+
+```bash
+cd project-03
+```
+_______________________________________________________________________________
+
+Then run this command
+
+```bash
+cargo run --quiet --bin 01_program_one
 ```
 _______________________________________________________________________________
