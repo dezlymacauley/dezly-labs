@@ -48,6 +48,7 @@ Add this to the `.cargo/config.toml` file
 
 ```toml
 [alias]
+bin = "run --quiet --bin"
 dev = "run --quiet"
 ```
 _______________________________________________________________________________
@@ -114,6 +115,27 @@ cargo new --vcs none project-01
 `--vcs none` will create the project without creating a `.git` directory.
 _______________________________________________________________________________
 
+To run the project, first enter the `project-01` directory
+
+```bash
+cd project-01
+```
+_______________________________________________________________________________
+
+The run this command
+
+```bash
+cargo dev
+```
+_______________________________________________________________________________
+
+Return to the root of the Rust workspace
+
+```bash
+cd ..
+```
+_______________________________________________________________________________
+
 ## How to add another Rust project to the workspace
 
 In this example, I'm adding another project called `project-02`
@@ -150,36 +172,35 @@ The workspace structure should look like this now
 │   ├── Cargo.toml
 │   └── src
 │       └── main.rs
+├── Cargo.lock
 ├── Cargo.toml
 ├── rustfmt.toml
 └── rust-toolchain.toml
 ```
 _______________________________________________________________________________
 
-To run a project, cd to project directory and run this command:
+To run the project, first enter the `project-02` directory
+
+```bash
+cd project-02
+```
+_______________________________________________________________________________
+
+The run this command
 
 ```bash
 cargo dev
 ```
 _______________________________________________________________________________
 
-Whenever you are not working on your project,
-you can delete the target directory to save disk space on your machine.
+Return to the root of the Rust workspace
 
 ```bash
-cargo clean
+cd ..
 ```
 _______________________________________________________________________________
 
-To rebuild the project after cleaning it, 
-or if you have just cloned the repo from GitHub, just run this command:
-
-```bash
-cargo build
-```
-_______________________________________________________________________________
-
-## Creating a project with multiple binaries
+## How to add a Rust project with multiple binaries
 
 In this example, I'm adding another project called `project-03`
 
@@ -201,32 +222,6 @@ cargo new --vcs none project-03
 ```
 _______________________________________________________________________________
 
-The project structure should look like this now
-
-```
-.
-├── .cargo
-│   └── config.toml
-├── .gitignore
-├── project-01
-│   ├── Cargo.toml
-│   └── src
-│       └── main.rs
-├── project-02
-│   ├── Cargo.toml
-│   └── src
-│       └── main.rs
-├── project-03
-│   ├── Cargo.toml
-│   └── src
-│       └── main.rs
-├── Cargo.lock
-├── Cargo.toml
-├── rustfmt.toml
-└── rust-toolchain.toml
-```
-_______________________________________________________________________________
-
 Delete the `project-03/src/` directory
 
 ```bash
@@ -240,6 +235,34 @@ Run the following command
 mkdir -p project-03/src/bin/
 touch project-03/src/bin/01_program_one.rs
 touch project-03/src/bin/02_program_two.rs
+```
+_______________________________________________________________________________
+
+The project structure should look like this now
+
+```
+.
+├── .cargo
+│   └── config.toml
+├── Cargo.lock
+├── Cargo.toml
+├── .gitignore
+├── project-01
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+├── project-02
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+├── project-03
+│   ├── Cargo.toml
+│   └── src
+│       └── bin
+│           ├── 01_program_one.rs
+│           └── 02_program_two.rs
+├── rustfmt.toml
+└── rust-toolchain.toml
 ```
 _______________________________________________________________________________
 
@@ -273,6 +296,27 @@ _______________________________________________________________________________
 Then run this command
 
 ```bash
-cargo run --quiet --bin 01_program_one
+cargo bin 01_program_one
+```
+
+- Note: Leave out `.rs` file extension
+_______________________________________________________________________________
+
+Return to the root of the workspace
+
+```bash
+cd ..
+```
+_______________________________________________________________________________
+
+## Saving disk space
+
+Whenever you are not working on your project,
+you can delete the `target` directory to save disk space on your machine.
+
+Rust has a built in command for this
+
+```bash
+cargo clean
 ```
 _______________________________________________________________________________
