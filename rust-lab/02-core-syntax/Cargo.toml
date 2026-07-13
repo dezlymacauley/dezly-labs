@@ -3,5 +3,6 @@ resolver = "3"
 members = [
     "project-01",
     "project-02",
-    "project-03"
+    "cs03-heap-allocation",
+    "cs04-linked-list"
 ]
