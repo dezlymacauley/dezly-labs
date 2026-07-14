@@ -29,7 +29,7 @@ impl Node {
 struct LinkedList {
     number_of_elements: u32,
     start_of_list_pointer: Option<Box<Node>>,
-    // end_of_list_pointer: Option<Box<Node>>,
+    end_of_list_pointer: Option<Box<Node>>,
 }
 
 impl LinkedList {
@@ -41,7 +41,7 @@ impl LinkedList {
         Self {
             number_of_elements: 1,
             start_of_list_pointer: Some(Box::new(new_node)),
-            // end_of_list_pointer: Some(Box::new(new_node)),
+            end_of_list_pointer: Some(Box::new(new_node)),
         }
     }
 }

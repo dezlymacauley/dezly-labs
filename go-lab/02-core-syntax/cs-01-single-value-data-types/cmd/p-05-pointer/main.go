@@ -39,5 +39,11 @@ func main() {
     fmt.Printf("%p\n", pointerToCakesAvailable)
 
 	//_________________________________________________________________________
+	
+	// EXAMPLE: 3 => How to store a value on the heap 
+
+    fruitsAvailable = new()
+
+    //_________________________________________________________________________
 
 }
