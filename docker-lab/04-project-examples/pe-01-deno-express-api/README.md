@@ -59,12 +59,20 @@ hurl --variable userId="f6bcf2a0-d606-4ca3-929f-9d3100e587e5" users_post.hurl
 ```
 _______________________________________________________________________________
 
-## Using a Docker Hardened Image
+## Building a Docker image from the Dockerfile
 
-Go to this link
+Run this command
 
+```bash
+docker build -t pe-01-deno-express-api:1.0.0 .
 ```
-https://hub.docker.com/hardened-images/catalog/dhi/deno/images
-```
+_______________________________________________________________________________
 
+## Creating a container instance from the Dockerfile
+
+```bash
+docker run -d -p 127.0.0.1:3000:3000 \
+    --name pe-01-deno-express-api-instance-one \
+    pe-01-deno-express-api:1.0.0
+```
 _______________________________________________________________________________

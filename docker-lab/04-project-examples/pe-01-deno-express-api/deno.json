@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno --allow-env --allow-net src/main.ts"
+    "start": "deno --allow-env --allow-net src/main.ts"
   },
 	"fmt": {
 		"lineWidth": 80,
