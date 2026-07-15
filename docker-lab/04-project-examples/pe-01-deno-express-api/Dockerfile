@@ -23,7 +23,9 @@ COPY src/main.ts ./src/main.ts
 EXPOSE 3000
 
 # Reset the entry point command. Sometimes a base image will set something
-# and it will cause CMD to fail.
+# and it will cause CMD to fail. Setting ENTRYPOINT to an empty arrow will
+# help eliminate hidden control flow and reduce bugs when trying to create
+# a container instance from an image created from this Dockerfile
 ENTRYPOINT []
 
 # Run the `start` task from deno.json to start the API
