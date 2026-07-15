@@ -55,6 +55,6 @@ _______________________________________________________________________________
 /users
 
 ```bash
-hurl --variable userId="Add a test userId value" users_post.hurl
+hurl --variable userId="f6bcf2a0-d606-4ca3-929f-9d3100e587e5" users_post.hurl
 ```
 _______________________________________________________________________________
