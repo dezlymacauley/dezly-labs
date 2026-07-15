@@ -1,7 +1,7 @@
 # Deno Express API
 _______________________________________________________________________________
 
-### Setup Guide
+## Setup Guide
 
 Install the project dependencies
 
@@ -18,10 +18,14 @@ deno task dev
 ```
 _______________________________________________________________________________
 
-### API Testing with Hurl
+## API Testing with Hurl
 
 Open the project directory in a separate terminal and navigate 
 to the the `api-testing directory`
+
+_______________________________________________________________________________
+
+### GET requests
 
 _______________________________________________________________________________
 
@@ -37,4 +41,8 @@ To test the response
 ```bash
 hurl --test name_of_file.hurl 
 ```
+_______________________________________________________________________________
+
+### POST requests
+
 _______________________________________________________________________________

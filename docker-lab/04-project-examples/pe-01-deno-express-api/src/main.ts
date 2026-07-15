@@ -41,6 +41,6 @@ app.post(
 app.listen(
   port,
   () => {
-    console.log(`Server listining on port ${port}`);
+    console.log(`\nServer listining on port ${port}\n`);
   },
 );
