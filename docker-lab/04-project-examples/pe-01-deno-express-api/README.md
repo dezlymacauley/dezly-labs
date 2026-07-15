@@ -1,49 +1,40 @@
 # Deno Express API
 _______________________________________________________________________________
 
-Project dependencies
+### Setup Guide
+
+Install the project dependencies
 
 ```bash
-deno install --save-exact express
+deno install
 ```
 _______________________________________________________________________________
 
-Development dependencies
-
-```bash
-deno install --save-exact --dev @types/express
-```
-_______________________________________________________________________________
-
-Update the `dev` task in the `deno.json` file
-
-```json
-{
-  "tasks": {
-    "dev": "deno --allow-env --allow-net src/main.ts"
-  },
-	"fmt": {
-		"lineWidth": 80,
-		"proseWrap": "always",
-		"useTabs": false,
-		"indentWidth": 2,
-		"semiColons": true,
-		"singleQuote": false
-	}
-}
-```
-_______________________________________________________________________________
-
-To start the server
+Open the project directory in a separate terminal and run this command 
+to start the server
 
 ```bash
 deno task dev
 ```
 _______________________________________________________________________________
 
-To send a GET request with hurl, use this command
+### API Testing with Hurl
+
+Open the project directory in a separate terminal and navigate 
+to the the `api-testing directory`
+
+_______________________________________________________________________________
+
+To view the response
 
 ```bash
-echo "GET http://localhost:3000/" | hurl
+hurl name_of_file.hurl
+```
+_______________________________________________________________________________
+
+To test the response
+
+```bash
+hurl --test name_of_file.hurl 
 ```
 _______________________________________________________________________________
