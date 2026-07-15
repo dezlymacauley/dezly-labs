@@ -29,21 +29,30 @@ _______________________________________________________________________________
 
 _______________________________________________________________________________
 
-To view the response
+/
 
 ```bash
-hurl name_of_file.hurl
+hurl root_get.hurl
 ```
 _______________________________________________________________________________
 
-To test the response
+/users
 
 ```bash
-hurl --test name_of_file.hurl 
+hurl users_get.hurl
 ```
 _______________________________________________________________________________
 
 ### POST requests
+
+/users
+
+```bash
+hurl users_post_missing_userid.hurl
+```
+_______________________________________________________________________________
+
+/users
 
 ```bash
 hurl --variable userId="Add a test userId value" users_post.hurl
