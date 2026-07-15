@@ -1,5 +1,6 @@
 POST http://localhost:3000/users
+Content-Type: application/json
 
 {
-  "userId": "Dezly"
+  "userId": {{userId}}
 }

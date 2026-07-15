@@ -2,6 +2,10 @@ import express from "express";
 import type { Express } from "express";
 
 const app: Express = express();
+
+// Enables Express to handle JSON requests
+app.use(express.json());
+
 const port: number = 3000;
 
 const users: string[] = [];
@@ -9,7 +13,7 @@ const users: string[] = [];
 app.get(
   "/",
   (_req, res) => {
-    res.send("Hello world");
+    res.send("Hello world\n");
   },
 );
 
@@ -26,15 +30,15 @@ app.post(
     const newUserId = req.body.userId;
 
     if (!newUserId) {
-      return res.status(400).send("Missing userId");
+      return res.status(400).send("Missing userId\n");
     }
 
     if (users.includes(newUserId)) {
-      return res.status(400).send("userId already exists");
+      return res.status(400).send("userId already exists\n");
     }
 
     users.push(newUserId);
-    return res.status(201).send("User registered");
+    return res.status(201).send("User registered\n");
   },
 );
 
