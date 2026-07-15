@@ -1,18 +1,3 @@
-# Using a Docker Hardened Image
-
-# Login to your DockerHub account
-
-# docker login dhi.io
-
-# Go to this link
-# https://hub.docker.com/hardened-images/catalog/dhi/deno/images
-
-# This is the image I'm using
-# https://hub.docker.com/hardened-images/catalog/dhi/deno/images/deno%2Fdebian-13%2F2-dev/sha256-cf176bf6da737e00f9f3b3eab728b0e5de3e0e358ca2be742532d48b4e10f540
-
-# If you click: `Use this image`, you'll see something like this
-# docker pull dhi.io/deno:2-debian-dev
-
 # This sets the base image to use for the Docker container
 FROM dhi.io/deno:2-debian-dev
 
@@ -37,10 +22,9 @@ COPY src/main.ts ./src/main.ts
 # It tells the user what ports the application requires to function.
 EXPOSE 3000
 
+# Reset the entry point command. Sometimes a base image will set something
+# and it will cause CMD to fail.
+ENTRYPOINT []
+
 # Run the `start` task from deno.json to start the API
 CMD [ "deno", "task", "start" ]
-
-# To use this file run this command
-# The dot at the end is required. 
-# This tells Docker that the current directory is the root of your project
-# docker build -t pe-01-deno-express-api:1.0.0 .
