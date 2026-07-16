@@ -3,15 +3,15 @@
 version = 4
 
 [[package]]
+name = "cs-01-the-command-struct"
+version = "0.1.0"
+
+[[package]]
 name = "cs03-heap-allocation"
 version = "0.1.0"
 
 [[package]]
 name = "m04-linked-list"
-version = "0.1.0"
-
-[[package]]
-name = "project-01"
 version = "0.1.0"
 
 [[package]]

@@ -1,7 +1,7 @@
 [workspace]
 resolver = "3"
 members = [
-    "project-01",
+    "cs-01-the-command-struct",
     "project-02",
     "cs03-heap-allocation",
     "cs04-linked-list"
