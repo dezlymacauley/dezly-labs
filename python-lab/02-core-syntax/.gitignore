@@ -1,2 +1,5 @@
 # Used by ruff to speed up code formatting
 .ruff_cache/ 
+
+# Created by Python to speed up importing of modules
+__pycache__/
