@@ -1,5 +1,5 @@
 [package]
-name = "cs-01-the-command-struct"
+name = "cs-02-heap-allocation"
 version = "0.1.0"
 edition = "2024"
 

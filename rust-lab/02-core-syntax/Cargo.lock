@@ -3,17 +3,13 @@
 version = 4
 
 [[package]]
-name = "cs-01-the-command-struct"
+name = "cs-01-creating-cli-programs"
 version = "0.1.0"
 
 [[package]]
-name = "cs03-heap-allocation"
+name = "cs-02-heap-allocation"
 version = "0.1.0"
 
 [[package]]
-name = "m04-linked-list"
-version = "0.1.0"
-
-[[package]]
-name = "project-02"
+name = "cs-04-linked-list"
 version = "0.1.0"
