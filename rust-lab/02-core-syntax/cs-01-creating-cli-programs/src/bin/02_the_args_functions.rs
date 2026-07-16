@@ -7,6 +7,8 @@
 */
 
 fn main() {
+
+    // Returns an iterator over the program's arguments; index 0 is the binary name
     let args: Vec<String> = std::env::args().collect();
     println!("{args:?}");
 
