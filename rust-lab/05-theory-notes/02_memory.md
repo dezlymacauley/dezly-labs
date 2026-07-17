@@ -96,11 +96,71 @@ _______________________________________________________________________________
 
 - A program is a set of instructions.
 - A process is a program that is running. To be more specific,
-this means that the kernel has loaded the process into RAM, and allocated
-some Stack memory, Heap memory, a process ID, and CPU time for that program.
+this means that the kernel has peformed the following:
+
+1. Loaded the process into RAM
+
+2. Given the process a `process id` (to distiguish between multiple instances
+of the same program).
 
 If you open a program twice, then two processes will be opened.
 
+One process for each instance of the program.
+
 E.g. Opening two terminal windows.
+
+3. Given the process it own `virtual address space`,
+which includes the `Stack` for that process, and the `Heap` for that process.
+
+The virtual address is like a range of all the available 
+stack and heap adresses that are for that are reserved for that process.
+
+#### Note
+- This does not mean that a process is using every available address in that
+space. It is simply reserved for when the program needs to use it.
+
+You can think of it as a private parking lot. Only cars belonging to the
+process are allowed to be parked in that parking lot, however the parking
+spots are allowed to be empty if they are not being used.
+_______________________________________________________________________________
+
+### Stack
+
+The Stack is a region of a process's Virtual Address Space used for
+function calls and local variables. The important thing to take note of is
+that the Stack is for data that has a known sized at compile time.
+
+In simple terms, the ??? knows exactly how much memory to allocate for
+that data before the program runs (this is when the kernel loads the program
+into memory) 
+
+The Stack is much smaller than the Heap.
+
+Functions are handled according to LI-FI (Last In, First Out).
+_______________________________________________________________________________
+
+To check how much stack memory the kernel allocates to each process on your
+machine, run this command
+
+```bash
+ulimit -s
+```
+_______________________________________________________________________________
+
+You should get an output like this
+
+```
+16384
+```
+
+This means that the kernal allocates only 16384 KB (16 MB) of RAM 
+for every process. If a process every hits, that limit, then it will crash.
+
+This is known as a stack overflow.
+_______________________________________________________________________________
+
+### Heap
+
+There is no fixed starting size for the Heap it will grow as needed.
 
 _______________________________________________________________________________
