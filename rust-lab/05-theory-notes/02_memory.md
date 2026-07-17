@@ -227,60 +227,6 @@ fn main() {
 ```
 _______________________________________________________________________________
 
-#### C
-_______________________________________________________________________________
-
-Declaring a 32-bit signed integer on the Stack.
-
-```c
-#include <stdio.h>
-
-int main() {
-    int x = 42;
-
-    // The value of x
-    printf("x = %d\n", x);
-
-    // The memory address of x
-    printf("address of x = %p\n", (void*)&x);
-
-    return 0;
-}
-```
-_______________________________________________________________________________
-
-Declaring a 32-bit signed integer on the Heap.
-
-```c
-
-// Required to use `printf`
-#include <stdio.h>
-
-// Required to use `malloc`
-#include <stdlib.h>
-
-int main() {
-
-    // Request Heap memory
-    int* y = malloc(sizeof(int));
-
-    // Store the value on the heap
-    *y = 42;
-
-    // The memory address stored by y
-    printf("%p\n", (void*)y);
-
-    // The value stored by y
-    printf("%d\n", *y);
-
-    // Remember to free the memory you requested.
-    free(y);   
-
-    return 0;
-}
-```
-_______________________________________________________________________________
-
 #### C++
 
 _______________________________________________________________________________
@@ -348,4 +294,168 @@ int main() {
     return 0;
 }
 ```
+_______________________________________________________________________________
+
+#### C
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Stack.
+
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 42;
+
+    // The value of x
+    printf("x = %d\n", x);
+
+    // The memory address of x
+    printf("address of x = %p\n", (void*)&x);
+
+    return 0;
+}
+```
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Heap.
+
+```c
+
+// Required to use `printf`
+#include <stdio.h>
+
+// Required to use `malloc`
+#include <stdlib.h>
+
+int main() {
+
+    // Request Heap memory
+    int* y = malloc(sizeof(int));
+
+    // Store the value on the heap
+    *y = 42;
+
+    // The memory address stored by y
+    printf("%p\n", (void*)y);
+
+    // The value stored by y
+    printf("%d\n", *y);
+
+    // Remember to free the memory you requested.
+    free(y);   
+
+    return 0;
+}
+```
+_______________________________________________________________________________
+
+#### Go
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Stack.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	var x int32 = 42
+
+	// The value of x
+	fmt.Println("x =", x)
+
+	// The memory address of x
+	fmt.Printf("address of x = %p\n", &x)
+}
+```
+_______________________________________________________________________________
+
+#### Go doesn't let you choose Stack vs. Heap directly. 
+
+- The compiler decides for you using something called `escape analysis`
+
+- If the compiler can prove a variable is only used inside that function 
+and never referenced outside it, it stays on the Stack (fast, auto-cleaned).
+
+- If the compiler detects the variable's address "escapes" the 
+function (e.g. returned, stored in a struct, passed to a goroutine), 
+it automatically places it on the Heap instead — even if you wrote 
+it exactly like a normal variable.
+
+- You never have to free memory because Go's garabage collector does 
+this for you.
+
+- This makes Go code much simpler to write than Rust, C++ and C,
+but at the cost of control and performance.
+
+_______________________________________________________________________________
+
+"Declaring" a 32-bit signed integer on the Heap.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	y := new(int32)
+	*y = 42
+
+	// The memory address stored by y
+	fmt.Printf("%p\n", y)
+
+	// The value stored by y
+	fmt.Println(*y)
+}
+```
+_______________________________________________________________________________
+
+#### Python
+
+Python doesn't really give you the power to choose Stack vs. Heap when
+declaring variable.
+
+In CPython (the standard Python interpreter), 
+everything is an object that is stored on the Heap.
+
+Even if you create a basci type like an integer in Python,
+that integer is stored as an object on the Heap.
+
+```python
+x = 42
+
+# The value of x
+print(f"x = {x}")
+
+print(f"object id of x = {hex(id(x))}")
+```
+
+Python also does not allow you to print the memory address of a variable,
+the best you can do is.
+_______________________________________________________________________________
+
+#### TypeScript (Deno)
+
+TypeScript is transpiled to JavaScript, 
+and Deno runs on V8 (Chrome's JS engine), which manages all memory itself. 
+
+You don't get to choose Stack vs. Heap.
+
+V8's garbage collector decides everything.
+
+TypeScript as No built-in way to get the memory address of a variable.
+
+```typescript
+const x: number = 42;
+
+// The value of x
+console.log(`x = ${x}`);
+```
+
+#### Fun fact
+- V8 is written in C++
+- And Deno has Rust binding for V8, called Rusty V8, 
+which is written in Rust and C++.
 _______________________________________________________________________________
