@@ -130,13 +130,15 @@ The Stack is a region of a process's Virtual Address Space used for
 function calls and local variables. The important thing to take note of is
 that the Stack is for data that has a known sized at compile time.
 
-In simple terms, the ??? knows exactly how much memory to allocate for
+In simple terms, the compiler knows exactly how much memory to allocate for
 that data before the program runs (this is when the kernel loads the program
 into memory) 
 
 The Stack is much smaller than the Heap.
 
-Functions are handled according to LI-FI (Last In, First Out).
+Functions are handled according to LI-FO (Last In, First Out).
+
+Memory allocated to variables is automatically freed.
 _______________________________________________________________________________
 
 To check how much stack memory the kernel allocates to each process on your
@@ -161,6 +163,29 @@ _______________________________________________________________________________
 
 ### Heap
 
-There is no fixed starting size for the Heap it will grow as needed.
+This is for storing data with a size that can only be determined at runtime,
+or would be too wasteful to store on the Heap.
+
+Unlike the Stack, the Heap does not follow LI-FO. When data is allocated
+on the Heap the kernel has to search for a free block of space that is large
+enough to fit the data.
+
+The means that using data from the Heap is much slower than 
+the data from the Stack.
+
+Another major difference with the Heap is that memory allocated on the heap
+is not automatically freed (aka released back to the Operating system).
+
+If you are programming in a garbage-collected language like Go, Python,
+and TypeScript then a garbage collector for that specific programming language
+will free the memory allocated on the heap for you.
+
+If you are using a language with manual memory management like C or C++, 
+then you have to remember to free up the memory when writing your code.
+
+If you are using Rust, Rust uses a unique ownership model to free the memory
+allocated once there are no owners using that memory.
+_______________________________________________________________________________
+
 
 _______________________________________________________________________________
