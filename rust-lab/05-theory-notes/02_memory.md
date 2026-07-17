@@ -487,6 +487,63 @@ Python also does not allow you to print the memory address of a variable,
 the best you can do is.
 _______________________________________________________________________________
 
+#### Mojo
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Stack
+
+```python
+def main():
+    var x: Int32 = 42
+    print("x =", x)
+    print("address of x =", Pointer(to=x))
+```
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Heap 
+
+```python
+def main():
+
+    var y = alloc[Int32](1)
+    y.init_pointee_copy(42)
+
+    print("address stored by y =", y)
+    print("value stored by y =", y[])
+    y.free()
+```
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Heap
+
+```python
+from memory import UnsafePointer, alloc
+
+def main():
+    # Stack allocation
+    var x: Int32 = 42
+
+    # The value of x
+    print("x =", x)
+
+    # A pointer to the existing Stack variable
+    var x_ptr = UnsafePointer(to=x)
+    print("value pointed to by x_ptr =", x_ptr[])
+
+    # Heap allocation
+    var y = alloc[Int32](1)
+
+    # Initialize the allocated memory
+    y.init_pointee_copy(42)
+
+    # The value stored by y
+    print("value stored by y =", y[])
+
+    # Free the heap memory manually — no GC, no ownership auto-drop for UnsafePointer
+    y.free()
+```
+_______________________________________________________________________________
+
 #### TypeScript (Deno)
 
 TypeScript is transpiled to JavaScript, 
