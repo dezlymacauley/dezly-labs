@@ -187,5 +187,97 @@ If you are using Rust, Rust uses a unique ownership model to free the memory
 allocated once there are no owners using that memory.
 _______________________________________________________________________________
 
+### How different programming languges handle Stack and Heap alllocation
+
+- Note: 1 byte = 8 bits. So 32 bits = 4 bytes.
+- Signed means that the number can be positive or negative.
+- integer means that the number is not allowed to have decimal places.
+_______________________________________________________________________________
+
+#### Rust
+_______________________________________________________________________________
+
+Declaring a 32 bit signed integer on the Stack.
+
+```rust
+fn main() {
+    let x: i32 = 42;
+
+    // The value of x
+    println!("x = {x}");
+
+    // The memory address of x
+    println!("address of x = {:p}", &x);
+}
+```
+_______________________________________________________________________________
+
+Declaring a 32 bit signed integer on the Heap.
+
+```rust
+fn main() {
+    let y: Box<i32> = Box::new(42);
+
+    // The memory address stored by y
+    println!("{:p}", y); 
+
+    // The value stored by y
+    println!("{}", *y);    
+}
+```
+_______________________________________________________________________________
+
+#### C
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Stack.
+
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 42;
+
+    // The value of x
+    printf("x = %d\n", x);
+
+    // The memory address of x
+    printf("address of x = %p\n", (void*)&x);
+
+    return 0;
+}
+```
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Heap.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+
+    // Request Heap memory
+    int* y = malloc(sizeof(int));
+
+    // Store the value on the heap
+    *y = 42;
+
+    // The memory address stored by y
+    printf("%p\n", (void*)y);
+
+    // The value stored by y
+    printf("%d\n", *y);
+
+    // Remember to free the memory you requested.
+    free(y);   
+
+    return 0;
+}
+```
+_______________________________________________________________________________
+
+#### C++
+
 
 _______________________________________________________________________________
