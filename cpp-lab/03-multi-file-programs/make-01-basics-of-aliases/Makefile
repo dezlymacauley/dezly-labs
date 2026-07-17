@@ -1,5 +1,5 @@
-# This will compile main.cpp and lib.cpp into object files.
-# and then it will use boh of the object files to generate 
+# This will compile main.cc and lib.cc into object files.
+# and then it will use both of the object files to generate 
 # an executable binary
 build:
 	clang++ -c main.cc -o main.o
