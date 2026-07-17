@@ -350,6 +350,57 @@ int main() {
 ```
 _______________________________________________________________________________
 
+#### Zig
+_______________________________________________________________________________
+
+
+Declaring a 32-bit signed integer on the Stack.
+
+```zig
+const std = @import("std");
+
+pub fn main() !void {
+    // Stack allocation
+    var x: i32 = 42;
+    std.debug.print("x = {}\n", .{x});
+    std.debug.print("address of x = {*}\n", .{&x});
+
+    // Heap allocation — must explicitly choose an allocator
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+
+    const y = try allocator.create(i32);
+    y.* = 42;
+
+    std.debug.print("address stored by y = {*}\n", .{y});
+    std.debug.print("value stored by y = {}\n", .{y.*});
+
+    allocator.destroy(y);   // must free manually — no GC, no ownership system
+}
+```
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Heap.
+
+```zig
+const std = @import("std");
+
+pub fn main() !void {
+    // Choose an allocator
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+
+    const y = try allocator.create(i32);
+    y.* = 42;
+
+    std.debug.print("address stored by y = {*}\n", .{y});
+    std.debug.print("value stored by y = {}\n", .{y.*});
+
+    // Free the memory
+    allocator.destroy(y);   
+}
+```
+_______________________________________________________________________________
 #### Go
 _______________________________________________________________________________
 
