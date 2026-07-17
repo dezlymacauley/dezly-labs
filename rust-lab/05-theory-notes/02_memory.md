@@ -252,7 +252,11 @@ _______________________________________________________________________________
 Declaring a 32-bit signed integer on the Heap.
 
 ```c
+
+// Required to use `printf`
 #include <stdio.h>
+
+// Required to use `malloc`
 #include <stdlib.h>
 
 int main() {
@@ -279,5 +283,69 @@ _______________________________________________________________________________
 
 #### C++
 
+_______________________________________________________________________________
 
+Declaring a 32-bit signed integer on the Stack.
+```cpp
+#include <iostream>
+
+int main() {
+    int x = 42;
+
+    // The value of x
+    std::cout << "x = " << x << std::endl;
+
+    // The memory address of x
+    std::cout << "address of x = " << &x << std::endl;
+
+    return 0;
+}
+```
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Heap (Classic Version)
+
+```cpp
+#include <iostream>
+
+int main() {
+    int* y = new int(42);
+
+    // The memory address stored by y
+    std::cout << y << std::endl;
+
+    // The value stored by y
+    std::cout << *y << std::endl;
+
+    // must free manually — no ownership system or GC
+    delete y;   
+    return 0;
+}
+```
+_______________________________________________________________________________
+
+Declaring a 32-bit signed integer on the Heap (C++23 version)
+
+```cpp
+#include <print>
+using std::print;
+
+#include <memory>
+using std::unique_ptr;
+using std::make_unique;
+
+int main() {
+    unique_ptr<int> y = make_unique<int>(42);
+
+    // The memory address stored by y
+    print("{}\n", (void*)y.get());
+
+    // The value stored by y
+    print("{}\n", *y);
+
+    // No delete needed — memory is freed automatically
+    // when y goes out of scope, just like Rust's Box<i32>
+    return 0;
+}
+```
 _______________________________________________________________________________
