@@ -1,39 +1,44 @@
-# SECTION: 1 => Build Settings 
+# SECTION: 1 => Variables
 
-# Build Settings
+# The C++ compiler
 COMPILER = clang++
+
+# The C++ standard
 STANDARD = -std=c++20
+
+# Compiler Warnings for catching common errors
 WARNINGS = -Wall -Wextra -Wpedantic
-BUILD_MODE = DEBUG
-COMPILER_CALL = $(COMPILER) $(STANDARD) $(WARNINGS)
 
+# This can either be set to `DEBUG` or `RELEASE`
+BUILD_MODE = DEBUG 
 
-# Debug Settings
-DEBUG_MODE = true
+# These setting will be applied when `BUILD_MODE = DEBUG`
+DEBUG_MODE_FLAGS = -g O0
 
-# This is how you declare a variable as an empty string
-DEBUG_MODE_STATUS_MESSAGE = 
+# These setting will be applied when `BUILD_MODE = RELEASE`
+RELEASE_MODE_FLAGS = -02
 
-#______________________________________________________________________________
+# This is how you declare a variable as an empty string.
+# This variable will be set by the if statement below
+BUILD_SETTINGS = 
 
-# SECTION: 2 => If Statements
-
-ifeq ($(DEBUG_MODE), true)
-	DEBUG_MODE_STATUS_MESSAGE = Debug mode is enabled
-
+ifeq ($(BUILD_MODE), DEBUG)
+	BUILD_SETTINGS = $(DEBUG_FLAGS)
 else
-	DEBUG_MODE_STATUS_MESSAGE = Debug mode is disabled 
+	BUILD_SETTINGS = $(RELEASE_FLAGS)
 endif
 
+COMPILER_CALL = $(COMPILER) \
+				$(STANDARD) \
+				$(WARNINGS) \
+				$(BUILD_SETTINGS)
+
 #______________________________________________________________________________
 
-# SECTION: 3 => Makefile Commands
+# SECTION: 2 => Commands
 
-# print-debug-mode-status-message:
-# 	echo $(DEBUG_MODE_STATUS_MESSAGE)
-#
-# print-build-mode:
-# 	@echo $(BUILD_MODE_STATUS_MESSAGE)
+print-build-mode:
+	echo $(BUILD_MODE)
 
 # Creates the `lib.o` and `main.o` object files,
 # and then uses both object files to create a binary executable called `main`
