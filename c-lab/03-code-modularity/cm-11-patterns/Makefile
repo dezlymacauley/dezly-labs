@@ -36,9 +36,15 @@ endif
 
 # _____________________________________________________________________________
 
-EXECUTABLE_NAME = main
 
-C_OBJECTS = build/obj/lib.o build/obj/main.o
+C_SOURCES = $(wildcard src/*.c)
+
+# Creates a list of all the .o files that need to be created.
+# The syntax is:
+# patsubst file_names replacement_name, list
+C_OBJECTS = $(patsubst src/%.c, build/obj/%.o, $(C_SOURCES))
+
+EXECUTABLE_NAME = main
 
 # _____________________________________________________________________________
 
@@ -60,12 +66,16 @@ compile_commands.json:
 	bear -- make build --silent
 
 run: build
-	./build/bin/main
+	./build/bin/$(EXECUTABLE_NAME)
 
 clean:
 	rm -rf .cache/
 	rm -rf build/
 	rm -f compile_commands.json
+
+check:
+	echo $(C_SOURCES)
+	echo $(C_OBJECTS)
 
 # _____________________________________________________________________________
 
