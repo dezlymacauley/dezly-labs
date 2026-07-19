@@ -104,6 +104,16 @@ line-length = 80
 ```
 _______________________________________________________________________________
 
+#### Note: 
+
+- Do not use mise to set the Python version for your project,
+that should be set by **uv**
+
+- Simply use `mise` to check what versions of Python are available 
+on Python.org
+
+_______________________________________________________________________________
+
 Use `mise` to view a list of available Python versions
 
 ```bash
@@ -112,14 +122,10 @@ mise ls-remote python
 _______________________________________________________________________________
 
 or simply run this to check what the latest version of Python is:
+
 ```bash
 mise latest python
 ```
-_______________________________________________________________________________
-
-#### Note: 
-- Do not use mise to set the Python version for your project,
-that should be set by **uv**
 _______________________________________________________________________________
 
 Use uv to set a specific version of Python for your project:
@@ -197,15 +203,16 @@ _______________________________________________________________________________
 
 And re-enter the project directory
 
-```sh
+```bash
 cd python-project
 ```
 _______________________________________________________________________________
 
 Now run this command to confirm that your project is using the Python from
 your virtual enviroment.
-```sh
-which python
+
+```bash
+which python | sed "s|$PWD/||"
 ```
 
 If you see this at the end of your path,
@@ -217,29 +224,79 @@ that was set by uv.
 ```
 _______________________________________________________________________________
 
-Create a `main.py` file
+Create an `src` directory. 
 
-```sh
-touch main.py
+```bash
+mkdir src
+```
+
+`src` stands for source.  This directory will keep your project neat by
+separating your source files (aka project code) from the configuration files
+and the `.venv` directory at the root of the project
+_______________________________________________________________________________
+
+Inside the `src` directory, 
+create a directory that has the same name as the project, 
+but uses `underscores` to separate the name.
+
+```bash
+mkdir -p src/python_project
+```
+
+So `python_project` inside of `python-project`
+_______________________________________________________________________________
+
+Create an `dunder init` file to let Python know that the directory
+`python_project`, is a module.
+
+```bash
+touch src/python_project/__init__.py
+```
+
+#### Note
+- It's two underscores on both side. 
+- That's why you'll sometimes hear people refer to this file 
+as dunder init (short for double undercore init).
+_______________________________________________________________________________
+
+Create a `dunder main` file to create the entry point of the package.
+
+```bash
+touch src/python_project/__main__.py
 ```
 _______________________________________________________________________________
 
-Add this to the `main.py` file
+Create lib.py file
+
+```bash
+touch src/python_project/lib.py
+```
+
+#### Note
+`lib` is short for library. 
+_______________________________________________________________________________
+
+Add this to the `src/python_project/lib.py` file
 
 ```python
-def main():
-    print("\nPython Project\n")
+def print_hello_world() -> None:
+    print("Hello world")
+```
+_______________________________________________________________________________
+
+Add this to the `src/python_project/__main__.py` file
+
+```python
+from python_project.lib import print_hello_world
+
+def main() -> None:
+    print_hello_world()
 
 if __name__ == "__main__":
     main()
 ```
 _______________________________________________________________________________
 
-To run the project
-```sh
-python main.py
-```
-_______________________________________________________________________________
 
 Create a `.mise-tasks` directory
 ```sh
