@@ -22,4 +22,15 @@ func main() {
 
 	// userName is dezlymacauley
 	// displayName is Dezly Macauley
+
+    //_________________________________________________________________________
+
+    // Shorthand syntax
+    // location is implicity assigned the data type `string`,
+    // based on the value on the right side.
+
+    location := "Europe"
+	fmt.Printf("location is %s\n", location)
+    //location is Europe
+
 }

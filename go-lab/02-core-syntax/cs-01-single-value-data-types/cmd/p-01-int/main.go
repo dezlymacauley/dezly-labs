@@ -17,6 +17,7 @@ func main() {
     var userAge int = 18
 
     // Use the format specifier `%d` to print the value of an integer
+    // `%d` stands for decimal integer
     fmt.Printf("userAge is %d\n", userAge)
 
     // userAge is 18
