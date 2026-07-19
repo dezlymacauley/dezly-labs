@@ -1,4 +1,4 @@
-# ABOUT: If Statements
+# ABOUT: Patterns
 
 # _____________________________________________________________________________
 
@@ -58,6 +58,8 @@ endif
 
 EXECUTABLE_NAME = main
 
+C_OBJECTS = lib.o main.o
+
 # _____________________________________________________________________________
 
 # SECTION: Tasks
@@ -84,5 +86,25 @@ clean:
 	rm -rf .cache/
 	rm -rf build/
 	rm -f compile_commands.json
+
+my_file.md:
+	touch my_file.md
+
+my-directory:
+	mkdir my-directory
+
+another-directory:
+	echo "Bananas are blue."
+
+# _____________________________________________________________________________
+
+# Patterns
+
+# For every C file that exists in the current directory,
+# this will generate a `.o` file with the same name.
+
+# `$<` means the name of the source file.
+%.o: %.c
+	$(C_COMPILER_CALL) -c $< -o $<@
 
 # _____________________________________________________________________________
