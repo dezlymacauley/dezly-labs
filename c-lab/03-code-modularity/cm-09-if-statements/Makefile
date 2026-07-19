@@ -1,10 +1,10 @@
-# ABOUT: Makefile variables
+# ABOUT: If Statements
 
 # _____________________________________________________________________________
 
 # SECTION: Settings
 
-.SILENT:
+# .SILENT:
 
 .PHONY: build \
         generate-lib-dot-o \
@@ -40,8 +40,23 @@ CFLAGS = -std=$(C_STANDARD) -Iinclude $(C_WARNINGS)
 # To use the value of variable use the syntax `$(VARIABLE_NAME)`
 COMPILER_CALL = $(CC) $(CFLAGS)
 
-# NOTE: None of the variable names above are special keywords.
-# You can name your variables as you wish.
+# _____________________________________________________________________________
+
+# You can toggle this by running the command like this.
+# make build DEBUG=0
+DEBUG = 1
+
+# `-g -O0` means generate debug symbols and don't optimize the code.
+# `-O3` means highest optimization levels
+ifeq ($(DEBUG), 1)
+	CFLAGS += -g -O0
+else
+	CFLAGS += -O3
+endif
+
+# _____________________________________________________________________________
+
+EXECUTABLE_NAME = main
 
 # _____________________________________________________________________________
 
@@ -49,7 +64,7 @@ COMPILER_CALL = $(CC) $(CFLAGS)
 
 build: generate-lib-dot-o generate-main-dot-o
 	mkdir -p build/bin/
-	$(COMPILER_CALL) build/obj/main.o build/obj/lib.o -o build/bin/main
+	$(COMPILER_CALL) build/obj/main.o build/obj/lib.o -o build/bin/$(EXECUTABLE_NAME)
 
 generate-lib-dot-o:
 	mkdir -p build/obj/
