@@ -1,11 +1,11 @@
-# ABOUT: Header files
+# ABOUT: Header files and `bear`
 
 # _____________________________________________________________________________
 
 # SECTION: Settings
 
-# .SILENT:
-.PHONY: build generate-compile-commands run
+.SILENT:
+.PHONY: build generate-compile-commands run clean
 
 # _____________________________________________________________________________
 
@@ -39,8 +39,5 @@ clean:
 	rm -rf .cache/
 	rm -rf build/
 	rm -f compile_commands.json
-
-nexus:
-
 
 # _____________________________________________________________________________
