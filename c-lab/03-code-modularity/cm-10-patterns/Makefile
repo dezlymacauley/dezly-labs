@@ -7,9 +7,6 @@
 # .SILENT:
 
 .PHONY: build \
-        generate-lib-dot-o \
-        generate-main-dot-o \
-        generate-compile-commands \
         run \
         clean
 
@@ -58,53 +55,37 @@ endif
 
 EXECUTABLE_NAME = main
 
-C_OBJECTS = lib.o main.o
-
 # _____________________________________________________________________________
 
 # SECTION: Tasks
 
-build: generate-lib-dot-o generate-main-dot-o
+# `build` will be treated as strictly a task because it is listed in .PHONY
+# `build` depends on `build/obj/lib.o` and `build/obj/main.o`
+build: build/obj/lib.o build/obj/main.o
 	mkdir -p build/bin/
 	$(C_COMPILER_CALL) build/obj/main.o build/obj/lib.o -o build/bin/$(EXECUTABLE_NAME)
 
-generate-lib-dot-o:
+# `build/obj/lib.o` depends on `src/lib.c`.
+# It will be rebuilt whenever `src/lib.c` is newer than `build/obj/lib.o`.
+build/obj/lib.o: src/lib.c
 	mkdir -p build/obj/
 	$(C_COMPILER_CALL) -c src/lib.c -o build/obj/lib.o
 
-generate-main-dot-o:
+# `build/obj/main.o` depends on `src/main.c`.
+# It will be rebuilt whenever `src/main.c` is newer than `build/obj/main.o`.
+build/obj/main.o: src/main.c
 	mkdir -p build/obj/
 	$(C_COMPILER_CALL) -c src/main.c -o build/obj/main.o
 
-generate-compile-commands:
+compile_commands.json:
 	bear -- make build --silent
 
-run:
+run: build
 	./build/bin/main
 
 clean:
 	rm -rf .cache/
 	rm -rf build/
 	rm -f compile_commands.json
-
-my_file.md:
-	touch my_file.md
-
-my-directory:
-	mkdir my-directory
-
-another-directory:
-	echo "Bananas are blue."
-
-# _____________________________________________________________________________
-
-# Patterns
-
-# For every C file that exists in the current directory,
-# this will generate a `.o` file with the same name.
-
-# `$<` means the name of the source file.
-%.o: %.c
-	$(C_COMPILER_CALL) -c $< -o $<@
 
 # _____________________________________________________________________________
