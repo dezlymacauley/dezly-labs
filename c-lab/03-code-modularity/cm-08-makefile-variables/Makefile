@@ -34,7 +34,6 @@ CC = clang
 CFLAGS = -std=c23 -Include -Wall -Wextra -Wpedantic
 
 # To use the value of variable use the syntax `$(VARIABLE_NAME)`
-
 COMPILER_CALL = $(CC) $(CFLAGS)
 
 # NOTE: None of the variable names above are special keywords.
@@ -46,7 +45,7 @@ COMPILER_CALL = $(CC) $(CFLAGS)
 
 build: generate-lib-dot-o generate-main-dot-o
 	mkdir -p build/bin/
-	clang -std=23 -Iinclude -Wall -Wextra -Wpedantic build/obj/main.o build/obj/lib.o -o build/bin/main
+	clang -std=c23 -Iinclude -Wall -Wextra -Wpedantic build/obj/main.o build/obj/lib.o -o build/bin/main
 
 generate-lib-dot-o:
 	mkdir -p build/obj/
@@ -56,9 +55,8 @@ generate-main-dot-o:
 	mkdir -p build/obj/
 	clang -std=c23 -Iinclude -Wall -Wextra -Wpedantic -c src/main.c -o build/obj/main.o
 
-
 generate-compile-commands:
-	bear -- make build --silent build
+	bear -- make build --silent
 
 run:
 	./build/bin/main

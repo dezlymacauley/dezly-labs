@@ -11,6 +11,9 @@
 
 # SECTION: Tasks
 
+# -c means compile without linking.
+# In simple terms, don't create an executable binary, 
+# just create object files
 build:
 	mkdir -p build/bin/
 	mkdir -p build/obj/
