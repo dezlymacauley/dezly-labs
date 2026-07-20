@@ -28,6 +28,7 @@
         run \
         clean \
 		lsp-sync
+
 #______________________________________________________________________________
 
 # SECTION: 2 => Compiler Settings
@@ -81,7 +82,7 @@ LSP_SYNC_COMMAND = $(CLEAN_COMMAND) && bear -- make build --silent
 
 #______________________________________________________________________________
 
-# SECTION: 3 => Makefile Targets (Files that need to be created or updated)
+# SECTION: 4 => Makefile Targets (Files that need to be created or updated)
 
 # Manual instructions to create an object file for each source file.
 # I prefer this style because it is explicit and readable.
@@ -111,7 +112,7 @@ $(BIN_FILE_PATH): $(OBJECT_FILES)
 
 #______________________________________________________________________________
 
-# SECTION: 4 => Makefile Tasks (Custom Commands)
+# SECTION: 5 => Makefile Tasks (Custom Commands)
 
 help:
 	@echo ""
@@ -183,6 +184,8 @@ settings:
 
 # make will run the command `make build`,
 # and then run the command `make run`
+# If the `build` directory already exists and is up to date then `make`
+# will skip to executing the `RUN_COMMAND`
 run: build
 	@$(RUN_COMMAND)
 
