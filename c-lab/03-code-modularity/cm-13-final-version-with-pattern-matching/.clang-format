@@ -1,0 +1,7 @@
+# This tells clang-format that the file contains C code.
+Language: C
+
+# This tells clang-format to format the file using Google's official 
+# style guide. Google's style guide was created for C++ 
+# but it can be used for C files. 
+BasedOnStyle: Google
