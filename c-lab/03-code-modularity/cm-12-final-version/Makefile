@@ -2,7 +2,8 @@
 
 .PHONY: settings \
         run \
-        clean 
+        clean \
+		clean-and-build
 # _____________________________________________________________________________
 
 # SECTION: 2 => Compiler Settings
@@ -58,8 +59,7 @@ $(BIN_FILE_PATH): $(OBJECT_FILES)
 		$(OBJECT_FILES) -o $(BIN_FILE_PATH)
 
 compile_commands.json:
-	bear -- make build --silent
-
+	bear -- make clean-and-build --silent
 # _____________________________________________________________________________
 
 # SECTION: 4 => Makefile Tasks (Custom Commands)
@@ -111,4 +111,7 @@ run: build
 
 clean:
 	$(CLEAN_COMMAND)
+
+clean-and-build: clean build
+
 # _____________________________________________________________________________
