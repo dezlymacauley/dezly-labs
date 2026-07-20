@@ -1,30 +1,51 @@
-# ABOUT: Patterns
+# SECTION: 1 => Makefile Settings
 
-# _____________________________________________________________________________
+# The default behavior of `make` is to create files and directories.
+# `.PHONY:` is used to override this default behavior, 
+# when you want to create custom commands.
 
-# SECTION: Settings
-
-# .SILENT:
-
+# The lines bellow, tells `make` to treat 
+# `make build`, `make run`, and `make clean`,
+# as custom commands, rather than as files or directories that need to be 
+# created.
 .PHONY: build \
         run \
         clean
 
 # _____________________________________________________________________________
 
-# SECTION: Variables
-
-CC = clang
-
-C_STANDARD = c23
-
-C_WARNINGS = -Wall -Wextra -Wpedantic
-
-CFLAGS = -std=$(C_STANDARD) -Iinclude $(C_WARNINGS)
-
-C_COMPILER_CALL = $(CC) $(CFLAGS)
+# SECTION: 1 => Variables
 
 # _____________________________________________________________________________
+
+# SUB_SECTION: A => Compiler Settings 
+
+COMPILER = clang
+LANGUAGE_STANDARD_FLAG = -std=c23
+HEADER_DIRECTORY_FLAG = -Iinclude
+COMPILER_WARNING_FLAGS = -Wall -Wextra -Wpedantic
+
+CREATE_BIN_COMMAND = $(COMPILER) \
+			 $(LANGUAGE_STANDARD_FLAG) \
+			 $(HEADER_DIRECTORY_FLAG) \
+			 $(COMPILER_WARNING_FLAGS)
+
+CREATE_OBJECT_COMMAND = $(CREATE_OBJECT_COMMAND) -c
+
+#______________________________________________________________________________
+
+# SUB_SECTION: B => Project Structure
+
+SOURCE_FILE_DIRECTORY = src
+SOURCE_FILES = $(wildcard $(SOURCE_FILE_DIRECTORY)/*.c)
+
+OBJECT_FILE_DIRECTORY = build/obj
+OBJECT_FILES = $(patsubst src/%.c, build/obj/%.o, $(SOURCE_FILES))
+
+BIN_FILE_DIRECTORY = build/bin
+BIN_FILE = $(BIN_FILE_DIRECTORY)/main
+
+#______________________________________________________________________________
 
 DEBUG = 1
 
@@ -36,19 +57,36 @@ endif
 
 # _____________________________________________________________________________
 
+# SECTION: 3 => Makefile Targets (Files that need to be created or updated)
 
-C_SOURCES = $(wildcard src/*.c)
-
-# Creates a list of all the .o files that need to be created.
-# The syntax is:
-# patsubst file_names replacement_name, list
-C_OBJECTS = $(patsubst src/%.c, build/obj/%.o, $(C_SOURCES))
-
-EXECUTABLE_NAME = main
 
 # _____________________________________________________________________________
 
-# SECTION: Tasks
+# SECTION: 4 => Makefile Tasks (Custom Commands)
+
+# build, run, clean
+
+
+
+# SOURCE_FILE_DIRECTORY = src
+# SOURCE_FILES = $(wildcard $(SOURCE_FILE_DIRECTORY)/*.c)
+#
+# OBJECT_FILE_DIRECTORY = build/obj
+# OBJECT_FILES = $(patsubst src/%.c, build/obj/%.o, $(SOURCE_FILES))
+#
+# BIN_FILE_DIRECTORY = build/bin
+# BIN_FILE = $(BIN_FILE_DIRECTORY)/main
+
+run: build
+	./build/bin/$(EXECUTABLE_NAME)
+
+clean:
+	rm -rf .cache/
+	rm -rf build/
+	rm -f compile_commands.json
+
+# _____________________________________________________________________________
+
 
 build: $(C_OBJECTS)
 	mkdir -p build/bin/
@@ -65,18 +103,6 @@ build: $(C_OBJECTS)
 compile_commands.json:
 	bear -- make build --silent
 
-run: build
-	./build/bin/$(EXECUTABLE_NAME)
-
-clean:
-	rm -rf .cache/
-	rm -rf build/
-	rm -f compile_commands.json
-
-check:
-	echo $(C_SOURCES)
-	echo $(C_OBJECTS)
-
 # _____________________________________________________________________________
 
 # This means for every `.c` file in the `src/` directory, 
@@ -91,3 +117,4 @@ build/obj/%.o: src/%.c
 # $^ the names of all prequisites
 
 # _____________________________________________________________________________
+# .SILENT:
