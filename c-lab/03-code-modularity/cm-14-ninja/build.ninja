@@ -1,0 +1,21 @@
+# SECTION: 1 => Compiler Settings
+
+cc = clang
+cflags = -std=c23 -Iinclude -Wall -Wextra -Wpedantic
+
+rule cc
+  command = $cc $cflags -c $in -o $out
+  description = Compiling $in
+
+rule link
+  command = $cc $cflags $in -o $out
+  description = Linking $out
+
+# SECTION: 2 => Targets
+
+build build/obj/lib.o: cc src/lib.c
+build build/obj/main.o: cc src/main.c
+
+build build/bin/main: link build/obj/lib.o build/obj/main.o
+
+default build/bin/main
