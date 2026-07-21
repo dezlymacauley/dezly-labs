@@ -1,3 +1,28 @@
 [tools]
 clang = "latest"
-make = "latest"
+ninja = "latest"
+
+[tasks.build]
+description = "🔨 Build the project with ninja" 
+quiet = true
+run = """
+ninja --quiet
+ninja -t compdb > compile_commands.json
+"""
+
+[tasks.dev]
+description = "🇨 Run the binary executable " 
+# This will ensure that when you run `mise dev`,
+# it will run `mise build` first.
+depends = ["build"]
+quiet = true
+run = """
+./build/bin/main
+"""
+
+[tasks.clean]
+description = "🧼 Clean the project directory" 
+quiet = true
+run = """
+rm -rf .cache/ build/ compile_commands.json
+"""

@@ -1,21 +1,20 @@
-# SECTION: 1 => Compiler Settings
-
+# Compiler settings.
 cc = clang
 cflags = -std=c23 -Iinclude -Wall -Wextra -Wpedantic
 
-rule cc
-  command = $cc $cflags -c $in -o $out
-  description = Compiling $in
+# Rules.
+rule compile
+    command = $cc $cflags -c $in -o $out
 
 rule link
-  command = $cc $cflags $in -o $out
-  description = Linking $out
+    command = $cc $in -o $out
 
-# SECTION: 2 => Targets
+# Build object files.
+build build/obj/lib.o: compile src/lib.c
+build build/obj/main.o: compile src/main.c
 
-build build/obj/lib.o: cc src/lib.c
-build build/obj/main.o: cc src/main.c
-
+# Build executable.
 build build/bin/main: link build/obj/lib.o build/obj/main.o
 
+# Default target.
 default build/bin/main
