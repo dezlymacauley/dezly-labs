@@ -1,7 +1,7 @@
 #include "lib.h"
 
 int main(void) {
-  print_hello_world();
+  print_project_name();
 
   return 0;
 }
