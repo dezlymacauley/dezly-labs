@@ -3,6 +3,18 @@
 
     This is best for handling 1 to 3 potential outcomes
 
+
+    == equal
+    != not equal
+
+    > greater than
+    >= greater than or equal
+
+    <= less than or equal
+
+
+
+
 */
 
 #include <stdio.h>
