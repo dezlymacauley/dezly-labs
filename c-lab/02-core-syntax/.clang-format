@@ -1,12 +1,7 @@
-# Tell clang-format that the sytnax in the file is C code
+# This tells clang-format that the file contains C code.
 Language: C
-# 4 space indentation
-IndentWidth: 4
-# Lines longer than 80 characters will be wrapped
-ColumnLimit: 80
-AccessModifierOffset: -8
-PointerAlignment: Left
-AllowShortFunctionsOnASingleLine: false
-# When parameters don't fit on one line, break them all onto the next line
-# and place the closing parenthesis on its own line
-AlignAfterOpenBracket: BlockIndent
+
+# This tells clang-format to format the file using Google's official 
+# style guide. Google's style guide was created for C++ files
+# but it can be used for C files. 
+BasedOnStyle: Google
