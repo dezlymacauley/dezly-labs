@@ -3,6 +3,10 @@
 // This is another single-line comment.
 
 /*
-    This is a multi-line comment.
-    It's useful for comments that require a longer explanation.
+_______________________________________________________________________________
+
+This is a multi-line comment.
+It's useful for comments that require a longer explanation.
+
+_______________________________________________________________________________
 */
