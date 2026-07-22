@@ -1,5 +1,12 @@
 /*
-    ABOUT: char
+    ABOUT: char (character)
+
+    In C all strings are treated as arrays.
+
+    Computers store characters as numbers
+
+    Every character used by a computer corresponds to a unique number, 
+    and vice versa. 
 
 */
 
