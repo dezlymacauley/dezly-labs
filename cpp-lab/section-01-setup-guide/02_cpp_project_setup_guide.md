@@ -1,17 +1,13 @@
-# C project setup guide
-_______________________________________________________________________________
-
-Create the directory
-
-```bash
-mkdir c-project
+# C++ project setup guide
+_______________________________________________________________________________ Create the directory ```bash
+mkdir cpp-project
 ```
 _______________________________________________________________________________
 
 Enter the directory
 
 ```bash
-cd c-project
+cd cpp-project
 ```
 _______________________________________________________________________________
 
@@ -35,7 +31,7 @@ Use mise to install the latest version of `clang`
 mise use clang@latest
 ```
 
-`clang` will be used to compile the C code.
+`clang` will be used to compile the C++ code.
 _______________________________________________________________________________
 
 Use mise to install the latest version of `clang-format`
@@ -44,66 +40,70 @@ Use mise to install the latest version of `clang-format`
 mise use clang-format@latest
 ```
 
-`clang-format` will be used to apply formating to the code in C files.
+`clang-format` will be used to apply formating to the code in C++ files.
 _______________________________________________________________________________
 
 Use mise to install the latest version of `ninja`
 
 ```bash
-mise use make@latest
+mise use ninja@latest
 ```
 
 `ninja` will use `clang` to build the project, 
 and ninja will also create a `compile_commands.json` file that will help 
-your lsp `clangd` to understand your project and provide suggestions when
-importing header files.
+the language server `clangd` to understand the project 
+and suggest the names of your header files files when importing them.
 _______________________________________________________________________________
 
 Create the project structure
 
 ```bash
-mkdir -p include
-touch include/lib.h
-
 mkdir -p src
-touch src/lib.c
-touch src/main.c
+
+touch src/lib.h
+touch src/lib.cc
+
+touch src/main.cc
 
 touch .clang-format
 touch .clangd
+
 touch .gitignore
+
 touch build.ninja
 ```
 _______________________________________________________________________________
 
-Add this to the `include/lib.h`  file
+Add this to the `src/lib.cc` file
 
-```c
-#pragma once
+```cpp
+#include "src/lib.h"
 
-void print_project_name(void);
+#include <iostream>
+
+void PrintProjectName() { std::cout << "C++ Project\n"; }
 ```
 _______________________________________________________________________________
 
-Add this to the `src/lib.c` file
+Add this to the `src/lib.h`  file
 
-```c
-#include <stdio.h>
+```cpp
+#ifndef CPP_PROJECT_SRC_LIB_H_
+#define CPP_PROJECT_SRC_LIB_H_
 
-void print_project_name(void) {
-  printf("C Project\n");
-}
+void PrintProjectName();
+
+#endif  // CPP_PROJECT_SRC_LIB_H_
 ```
 _______________________________________________________________________________
 
-Add this to the `src/main.c` file
+Add this to the `src/main.cpp` file
 
 ```c
-#include "lib.h"
+#include "src/lib.h"
 
-int main(void) {
-  print_project_name();
-
+int main() {
+  PrintProjectName();
   return 0;
 }
 ```
@@ -112,12 +112,10 @@ _______________________________________________________________________________
 Add this to the `.clang-format` file
 
 ```yaml
-# This tells clang-format that the file contains C code.
-Language: C
+# This tells clang-format that the file contains C++ code.
+Language: Cpp
 
-# This tells clang-format to format the file using Google's official 
-# style guide. Google's style guide was created for C++ files
-# but it can be used for C files. 
+# Format the file based on Google's official style guide
 BasedOnStyle: Google
 ```
 _______________________________________________________________________________
@@ -126,10 +124,10 @@ Add this to the `.clangd` file
 
 ```yaml
 CompileFlags:
-  Add: [ 
-    -std=c23, 
-    -Iinclude,
-    -Wall, -Wextra, -Wpedantic
+  Add: [
+    "-std=c++20",
+    "-I.",
+    "-Wall", "-Wextra", "-Wpedantic"
   ]
 ```
 _______________________________________________________________________________
@@ -156,22 +154,28 @@ Add this to the `build.ninja` file
 
 ```ninja
 # Compiler settings.
-cc = clang
-cflags = -std=c23 -Iinclude -Wall -Wextra -Wpedantic
+cxx = clang++
+cxxflags = -std=c++20 -I. -Wall -Wextra -Wpedantic
 
 # Rules.
 rule compile
-    command = $cc $cflags -c $in -o $out
+    command = $cxx $cxxflags -c $in -o $out
 
 rule link
-    command = $cc $in -o $out
+    command = $cxx $in -o $out
+
+rule compdb
+    command = ninja -t compdb > compile_commands.json
 
 # Build object files.
-build build/obj/lib.o: compile src/lib.c
-build build/obj/main.o: compile src/main.c
+build build/obj/lib.o: compile src/lib.cc
+build build/obj/main.o: compile src/main.cc
 
 # Build executable.
 build build/bin/main: link build/obj/lib.o build/obj/main.o
+
+# Helper target to generate compile_commands.json for clangd.
+build compile_commands: compdb
 
 # Default target.
 default build/bin/main
@@ -201,7 +205,7 @@ ninja = "latest"
 task.timings = false
 
 [tasks.build]
-description = "🔨 Build the project with ninja" 
+description = "🥷 Build the project with ninja"
 quiet = true
 run = """
 ninja --quiet
@@ -209,18 +213,23 @@ ninja -t compdb > compile_commands.json
 """
 
 [tasks.dev]
-description = "🇨 Run the project" 
+description = "🤖 Run the compiled binary"
 quiet = true
 run = """
 mise build
 ./build/bin/main
 """
 
+[tasks.format]
+description = "📜 Format the source code with clang-format"
+quiet = true
+run = "clang-format -i src/*.cc src/*.h"
+
 [tasks.clean]
-description = "🧼 Clean the project directory" 
+description = "🧼 Delete .cache/, build/, and .ninja_log"
 quiet = true
 run = """
-rm -rf .cache/ build/ .ninja_log compile_commands.json
+rm -rf .cache/ build/ .ninja_log
 """
 ```
 _______________________________________________________________________________
@@ -235,10 +244,11 @@ _______________________________________________________________________________
 You should see this output
 
 ```
-Name   Description
-build  🔨 Build the project with ninja
-clean  🧼 Clean the project directory
-dev    🇨 Run the project
+Name    Description
+build   🥷 Build the project with ninja
+clean   🧼 Delete .cache/, build/, and .ninja_log
+dev     🤖 Run the compiled binary
+format  📜 Format the source code with clang-format
 ```
 _______________________________________________________________________________
 
