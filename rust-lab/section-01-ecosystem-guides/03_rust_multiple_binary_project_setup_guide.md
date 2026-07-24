@@ -1,17 +1,17 @@
-# Rust Project Setup Guide
+# Rust Multiple Binary Project Setup Guide
 _______________________________________________________________________________
 
 Create the project directory
 
 ```bash
-mkdir rust-project
+mkdir rust-multiple-binary-project
 ```
 _______________________________________________________________________________
 
 Enter the project directory
 
 ```bash
-cd rust-project
+cd rust-multiple-binary-project
 ```
 _______________________________________________________________________________
 
@@ -100,8 +100,9 @@ When you run the `cargo build` command,
 rustup will check the `rust-toolchain.toml` file and ensure that the
 project is using the specific channel that was specified in the file 
 and that `rust-analyzer` is installed for that specific toolchain. 
-
 _______________________________________________________________________________
+
+## Not added
 
 Create a `.cargo` directory
 
@@ -110,6 +111,8 @@ mkdir .cargo
 ```
 _______________________________________________________________________________
 
+## Not added
+
 Create a `config.toml` file inside the `.cargo` directory. 
 
 This will allow you to create aliases for cargo commands.
@@ -117,8 +120,9 @@ This will allow you to create aliases for cargo commands.
 ```bash
 touch .cargo/config.toml
 ```
-
 _______________________________________________________________________________
+
+## Not added
 
 Add this to the `.cargo/config.toml` file
 
@@ -130,11 +134,42 @@ dev = "run --quiet"
 ```
 _______________________________________________________________________________
 
-Replace the contents of the `src/main.rs` file with this
+Delete the `src/main.rs` file
+
+```bash
+rm src/main.rs
+```
+_______________________________________________________________________________
+
+Create a `bin` directory inside the `src` directory
+
+```bash
+mkdir -p src/bin/
+```
+_______________________________________________________________________________
+
+Add two programs to the `src/bin/` directory
+
+```bash
+touch src/bin/program_01.rs
+touch src/bin/program_02.rs
+```
+_______________________________________________________________________________
+
+Add this to the `src/bin/program_01.rs` file
 
 ```rust
 fn main() {
-    println!("\nRust Project\n");
+    println!("\nProgram 01\n");
+}
+```
+_______________________________________________________________________________
+
+Add this to the `src/bin/program_01.rs` file
+
+```rust
+fn main() {
+    println!("\nProgram 02\n");
 }
 ```
 _______________________________________________________________________________
