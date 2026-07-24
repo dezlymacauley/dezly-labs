@@ -1,0 +1,12 @@
+[alias]
+# This creates a custom cargo command called `cargo dev`
+# `cargo p` is the same as `cargo run --quiet -p`
+p = "run --quiet -p"
+
+# This creates a custom cargo command called `cargo dev`
+# `cargo dev` is the same as `cargo run --quiet`
+dev = "run --quiet"
+
+# This creates a custom cargo command called `cargo bin`
+# `cargo bin` is the same as `cargo run --quiet --bin`
+bin = "run --quiet --bin"

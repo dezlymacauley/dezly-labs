@@ -122,7 +122,7 @@ Add this to the `.cargo/config.toml` file
 
 ```toml
 [alias]
-# This creates a custom cargo command called `cargo dev`
+# This creates a custom cargo command called `cargo bin`
 # `cargo bin` is the same as `cargo run --quiet --bin`
 bin = "run --quiet --bin"
 ```

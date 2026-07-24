@@ -1,7 +1,24 @@
 # Rust Workspace Setup Guide
 _______________________________________________________________________________
 
-## Setting up the Rust workspace
+Cargo allows you to create a Workspace.
+
+This is essentially a directory that contains Rust projects.
+
+Each Rust project in the directory is treated as a standalone project,
+with its own dependencies.
+
+However an external package can also be installed to the workspace,
+so that all Rust projects in the workspace can use it.
+
+_______________________________________________________________________________
+
+In this guide I will be creating a Rust workspace that contains 
+two Rust projects.
+
+- `project-alpha` (a single-binary-project)
+- `project-beta`  (a multi-binary-project)
+
 _______________________________________________________________________________
 
 Create the workspace directory
@@ -11,49 +28,132 @@ mkdir rust-workspace
 ```
 _______________________________________________________________________________
 
-Enter the workspace directory
+Enter the project directory
 
 ```bash
 cd rust-workspace
 ```
 _______________________________________________________________________________
 
-Create the workspace structure
+Initialize the workspace
+
+```bash
+cargo init --vcs none
+```
+
+The flag `--vcs none` will ensure that no version control system is setup 
+in the project. I prefer to setup version control manually.
+
+_______________________________________________________________________________
+
+Your `Cargo.toml` file will look like this
+
+```toml
+[package]
+name = "rust-workspace"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+```
+
+_______________________________________________________________________________
+
+Add this to the end of the `Cargo.toml` file
+
+```toml
+[package]
+name = "rust-workspace"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[workspace]
+resolver = "3"
+members = []
+```
+_______________________________________________________________________________
+
+Add the first project
+
+```bash
+cargo new project-alpha
+```
+_______________________________________________________________________________
+
+Add the second project
+
+```bash
+cargo new project-beta
+```
+_______________________________________________________________________________
+
+Cargo will automatically add both projects to the workspace
+
+```toml
+[package]
+name = "rust-workspace"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[workspace]
+resolver = "3"
+members = ["project-alpha","project-beta"]
+```
+_______________________________________________________________________________
+
+I like to list each project on a separate line.
+
+This will make it easier to read as more projects are added to the workspace.
+
+```toml
+[package]
+name = "rust-workspace"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[workspace]
+resolver = "3"
+members = [
+    "project-alpha",
+    "project-beta"
+]
+```
+_______________________________________________________________________________
+
+Create a `rustfmt.toml` file
+
+```bash
+touch rustfmt.toml
+```
+_______________________________________________________________________________
+
+Add this to the `rustfmt.toml` file
+
+```toml
+# To learn how to change the default values for various options, 
+# use the guide below:
+# https://rust-lang.github.io/rustfmt
+
+# Maximum width of each line
+# Default value: 100
+max_width = 80
+```
+_______________________________________________________________________________
+
+Create a `.gitignore` file
 
 ```bash
 touch .gitignore
-touch Cargo.toml
-touch rust-toolchain.toml
-touch rustfmt.toml
-
-mkdir -p .cargo
-touch .cargo/config.toml
 ```
 _______________________________________________________________________________
 
-The project structure will look like this
-
-```
-.
-├── .cargo
-│   └── config.toml
-├── .gitignore
-├── Cargo.toml
-├── rustfmt.toml
-└── rust-toolchain.toml
-```
-_______________________________________________________________________________
-
-Add this to the `.cargo/config.toml` file
-
-```toml
-[alias]
-bin = "run --quiet --bin"
-dev = "run --quiet"
-```
-_______________________________________________________________________________
-
-Add this to the `.gitignore` file
+Add this to the file
 
 ```gitignore
 # Build output
@@ -61,14 +161,10 @@ target/
 ```
 _______________________________________________________________________________
 
-Add this to the `Cargo.toml` file
+Create a `rust-toolchain.toml` file
 
-```toml
-[workspace]
-resolver = "3"
-members = [
-
-]
+```bash
+touch rust-toolchain.toml
 ```
 _______________________________________________________________________________
 
@@ -79,227 +175,134 @@ Add this to the `rust-toolchain.toml` file
 channel = "stable"
 components = [ "rust-analyzer" ]
 ```
+
+This will ensure that your project always uses the `stable toolchain`,
+and that it automatically downloads the version of `rust-analyzer` for 
+that version of the Rust compiler.
 _______________________________________________________________________________
 
-Add this to the `rustfmt.toml` file
+If you want your project to use a specific version of Rust, then do this:
 
 ```toml
-max_width = 80
-tab_spaces = 4
+[toolchain]
+channel = "1.96.1"
+components = [ "rust-analyzer" ]
 ```
 _______________________________________________________________________________
 
-## How to add your first Rust project to the workspace
-
-_______________________________________________________________________________
-
-Add the name of the project to the `members` section of the `Cargo.toml` file
-
-For this example, I will be adding a project called `project-01`
+Then build the project
 
 ```toml
-[workspace]
-resolver = "3"
-members = [
-    "project-01"
-]
+cargo build
 ```
+
+When you run the `cargo build` command, 
+rustup will check the `rust-toolchain.toml` file and ensure that the
+project is using the specific channel that was specified in the file 
+and that `rust-analyzer` is installed for that specific toolchain. 
 _______________________________________________________________________________
 
-Create the project
+Create a `.cargo` directory
 
 ```bash
-cargo new --vcs none project-01
+mkdir .cargo  
 ```
-
-`--vcs none` will create the project without creating a `.git` directory.
 _______________________________________________________________________________
 
-To run the project, first enter the `project-01` directory
+Create a `config.toml` file inside the `.cargo` directory. 
+
+This will allow you to create aliases for cargo commands.
 
 ```bash
-cd project-01
+touch .cargo/config.toml
 ```
 _______________________________________________________________________________
 
-The run this command
-
-```bash
-cargo dev
-```
-_______________________________________________________________________________
-
-Return to the root of the Rust workspace
-
-```bash
-cd ..
-```
-_______________________________________________________________________________
-
-## How to add another Rust project to the workspace
-
-In this example, I'm adding another project called `project-02`
+Add this to the `.cargo/config.toml` file
 
 ```toml
-[workspace]
-resolver = "3"
-members = [
-    "project-01",
-    "project-02"
-]
+[alias]
+# This creates a custom cargo command called `cargo dev`
+# `cargo p` is the same as `cargo run --quiet -p`
+p = "run --quiet -p"
+
+# This creates a custom cargo command called `cargo dev`
+# `cargo dev` is the same as `cargo run --quiet`
+dev = "run --quiet"
+
+# This creates a custom cargo command called `cargo bin`
+# `cargo bin` is the same as `cargo run --quiet --bin`
+bin = "run --quiet --bin"
 ```
 _______________________________________________________________________________
 
-Create the second project
-
-```bash
-cargo new --vcs none project-02
-```
-_______________________________________________________________________________
-
-The workspace structure should look like this now
-
-```
-.
-├── .cargo
-│   └── config.toml
-├── .gitignore
-├── project-01
-│   ├── Cargo.toml
-│   └── src
-│       └── main.rs
-├── project-02
-│   ├── Cargo.toml
-│   └── src
-│       └── main.rs
-├── Cargo.lock
-├── Cargo.toml
-├── rustfmt.toml
-└── rust-toolchain.toml
-```
-_______________________________________________________________________________
-
-To run the project, first enter the `project-02` directory
-
-```bash
-cd project-02
-```
-_______________________________________________________________________________
-
-The run this command
-
-```bash
-cargo dev
-```
-_______________________________________________________________________________
-
-Return to the root of the Rust workspace
-
-```bash
-cd ..
-```
-_______________________________________________________________________________
-
-## How to add a Rust project with multiple binaries
-
-In this example, I'm adding another project called `project-03`
-
-```toml
-[workspace]
-resolver = "3"
-members = [
-    "project-01",
-    "project-02",
-    "project-03"
-]
-```
-_______________________________________________________________________________
-
-Create the third project
-
-```bash
-cargo new --vcs none project-03
-```
-_______________________________________________________________________________
-
-Delete the `project-03/src/` directory
-
-```bash
-rm -rf project-03/src/
-```
-_______________________________________________________________________________
-
-Run the following command 
-
-```bash
-mkdir -p project-03/src/bin/
-touch project-03/src/bin/01_program_one.rs
-touch project-03/src/bin/02_program_two.rs
-```
-_______________________________________________________________________________
-
-The project structure should look like this now
-
-```
-.
-├── .cargo
-│   └── config.toml
-├── Cargo.lock
-├── Cargo.toml
-├── .gitignore
-├── project-01
-│   ├── Cargo.toml
-│   └── src
-│       └── main.rs
-├── project-02
-│   ├── Cargo.toml
-│   └── src
-│       └── main.rs
-├── project-03
-│   ├── Cargo.toml
-│   └── src
-│       └── bin
-│           ├── 01_program_one.rs
-│           └── 02_program_two.rs
-├── rustfmt.toml
-└── rust-toolchain.toml
-```
-_______________________________________________________________________________
-
-Add this to the `project-03/src/bin/01_program_one.rs` file
+Replace the contents of the `project-alpha/src/main.rs` file with this
 
 ```rust
 fn main() {
-    println!("Program One")
+    println!("\nProject Alpha\n");
 }
 ```
 _______________________________________________________________________________
 
-Add this to the `project-03/src/bin/02_program_two.rs` file
+Delete the `project-beta/src/main.rs` file
+
+```bash
+rm project-beta/src/main.rs
+```
+_______________________________________________________________________________
+
+Create a `bin` directory inside the `src` directory of `project-beta`
+
+```bash
+mkdir -p project-beta/src/bin/
+```
+_______________________________________________________________________________
+
+Add two programs to the `src/bin/` directory of `project-beta`
+
+```bash
+touch project-beta/src/bin/program_01.rs
+touch project-beta/src/bin/program_02.rs
+```
+_______________________________________________________________________________
+
+Add this to the `project-beta/src/bin/program_01.rs` file
 
 ```rust
 fn main() {
-    println!("Program Two")
+    println!("\nProject Beta - Program 01\n")
 }
 ```
 _______________________________________________________________________________
 
-To run `project-03/src/bin/02_program_one.rs`, do this:
+Add this to the `project-beta/src/bin/program_02.rs` file
 
-First make sure that you are in the `project-03` directory
-
-```bash
-cd project-03
+```rust
+fn main() {
+    println!("\nProject Beta - Program 02\n")
+}
 ```
 _______________________________________________________________________________
 
-Then run this command
+`project-alpha` is a `single-binary-project`, 
+so there are two ways to run it:
+
+_______________________________________________________________________________
+
+`Method 1`: Run the binary from the root of the workspace
 
 ```bash
-cargo bin 01_program_one
+cargo p project-alpha
 ```
+_______________________________________________________________________________
 
-- Note: Leave out `.rs` file extension
+`Method 2`: Enter the project and run the binary
+
+```bash
+cd project-alpha
+cargo dev
+```
 _______________________________________________________________________________
 
 Return to the root of the workspace
@@ -309,12 +312,41 @@ cd ..
 ```
 _______________________________________________________________________________
 
-## Saving disk space
+`project-beta` is a `multi-binary-project`,
+so to run a specific binary (aka executable program) from project-beta, 
+you need to enter the project directory.
 
-Whenever you are not working on your project,
-you can delete the `target` directory to save disk space on your machine.
 
-Rust has a built in command for this
+```bash
+cd project-beta
+```
+_______________________________________________________________________________
+
+To run `program_01.rs` of `project-beta`
+
+```bash
+cargo bin program_01
+```
+_______________________________________________________________________________
+
+To run `program_02.rs` of `project-beta`
+
+```bash
+cargo bin program_02
+```
+_______________________________________________________________________________
+
+Return to the root of the workspace
+
+```bash
+cd ..
+```
+_______________________________________________________________________________
+
+Whenever you are not usign the project,
+you can delete the target directory to save disk space.
+
+Cargo already has a built-in command for this.
 
 ```bash
 cargo clean
