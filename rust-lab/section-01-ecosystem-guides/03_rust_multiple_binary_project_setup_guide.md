@@ -102,16 +102,12 @@ project is using the specific channel that was specified in the file
 and that `rust-analyzer` is installed for that specific toolchain. 
 _______________________________________________________________________________
 
-## Not added
-
 Create a `.cargo` directory
 
 ```bash
 mkdir .cargo  
 ```
 _______________________________________________________________________________
-
-## Not added
 
 Create a `config.toml` file inside the `.cargo` directory. 
 
@@ -122,15 +118,13 @@ touch .cargo/config.toml
 ```
 _______________________________________________________________________________
 
-## Not added
-
 Add this to the `.cargo/config.toml` file
 
 ```toml
 [alias]
 # This creates a custom cargo command called `cargo dev`
-# `cargo dev` is the same as `cargo run --quiet`
-dev = "run --quiet"
+# `cargo dev` is the same as `cargo run --quiet --bin`
+dev = "run --quiet --bin"
 ```
 _______________________________________________________________________________
 
@@ -174,10 +168,26 @@ fn main() {
 ```
 _______________________________________________________________________________
 
-To run you project use the `dev` alias from your Cargo config
+To run program use the `cargo dev` alias with this syntax:
+
+cargo dev name_of_program
+
+#### Note: 
+- Don't add the `.rs` file extension. Only use the name of the file.
+
+_______________________________________________________________________________
+
+To run the file `src/program_01.rs`
 
 ```bash
-cargo dev
+cargo dev program_01
+```
+_______________________________________________________________________________
+
+To run the file `src/program_02.rs`
+
+```bash
+cargo dev program_02
 ```
 _______________________________________________________________________________
 
