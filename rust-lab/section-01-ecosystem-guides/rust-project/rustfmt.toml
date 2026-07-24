@@ -1,0 +1,7 @@
+# To learn how to change the default values for various options, 
+# use the guide below:
+# https://rust-lang.github.io/rustfmt
+
+# Maximum width of each line
+# Default value: 100
+max_width = 80

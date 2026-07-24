@@ -1,0 +1,4 @@
+[alias]
+# This creates a custom cargo command called `cargo dev`
+# `cargo dev` is the same as `cargo run --quiet`
+dev = "run --quiet"

@@ -1,4 +1,4 @@
-# Viewing the Rust books and documentation offline
+# Viewing Rust books and documentation offline
 _______________________________________________________________________________
 
 To view `The Rust Programming Language`
