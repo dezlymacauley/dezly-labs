@@ -1,0 +1,5 @@
+# This tells clang-format that the file contains C++ code.
+Language: Cpp
+
+# Format the file based on Google's official style guide
+BasedOnStyle: Google

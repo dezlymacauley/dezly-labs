@@ -2,4 +2,4 @@
 
 #include <iostream>
 
-void PrintProjectName() { std::cout << "C++ Project\n"; }
+void PrintProjectName(void) { std::cout << "C++ Project\n"; }

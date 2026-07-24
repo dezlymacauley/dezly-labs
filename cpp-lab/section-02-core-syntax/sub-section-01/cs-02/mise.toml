@@ -1,0 +1,48 @@
+[tools]
+clang = "latest"
+clang-format = "latest"
+ninja = "latest"
+
+[settings]
+task.timings = false
+
+[tasks.build]
+description = "🥷 Build the project with ninja"
+quiet = true
+run = """
+ninja --quiet
+ninja -t compdb > compile_commands.json
+"""
+
+[tasks.dev]
+description = "🤖 Run the compiled binary"
+quiet = true
+run = """
+mise build
+./build/bin/main
+"""
+
+[tasks.format]
+description = "📜 Format the source code with clang-format"
+quiet = true
+run = """
+clang-format -i src/*.cc src/*.h
+"""
+
+[tasks.lint]
+description = "💡 Lint the source files with ccplint"
+quiet = true
+run = """
+cpplint \
+    --recursive \
+    --extensions=cc,h \
+    --filter=-legal/copyright \
+    src/
+"""
+
+[tasks.clean]
+description = "🧼 Delete .cache/, build/, and .ninja_log"
+quiet = true
+run = """
+rm -rf .cache/ build/ .ninja_log
+"""

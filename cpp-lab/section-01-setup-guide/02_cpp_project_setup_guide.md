@@ -101,7 +101,7 @@ void PrintProjectName();
 ```
 _______________________________________________________________________________
 
-Add this to the `src/main.cpp` file
+Add this to the `src/main.cc` file
 
 ```c
 #include "src/lib.h"
