@@ -1,4 +1,4 @@
 [alias]
 # This creates a custom cargo command called `cargo dev`
-# `cargo dev` is the same as `cargo run --quiet --bin`
-dev = "run --quiet --bin"
+# `cargo bin` is the same as `cargo run --quiet --bin`
+bin = "run --quiet --bin"

@@ -123,8 +123,8 @@ Add this to the `.cargo/config.toml` file
 ```toml
 [alias]
 # This creates a custom cargo command called `cargo dev`
-# `cargo dev` is the same as `cargo run --quiet --bin`
-dev = "run --quiet --bin"
+# `cargo bin` is the same as `cargo run --quiet --bin`
+bin = "run --quiet --bin"
 ```
 _______________________________________________________________________________
 
@@ -168,7 +168,7 @@ fn main() {
 ```
 _______________________________________________________________________________
 
-To run program use the `cargo dev` alias with this syntax:
+To run program use the `cargo bin` alias with this syntax:
 
 cargo dev name_of_program
 
@@ -180,14 +180,14 @@ _______________________________________________________________________________
 To run the file `src/program_01.rs`
 
 ```bash
-cargo dev program_01
+cargo bin program_01
 ```
 _______________________________________________________________________________
 
 To run the file `src/program_02.rs`
 
 ```bash
-cargo dev program_02
+cargo bin program_02
 ```
 _______________________________________________________________________________
 
